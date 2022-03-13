@@ -1,0 +1,148 @@
+{
+  "reports": [
+    {
+      "employeeName": "Min",
+      "date": "2022-03-04T01:19:00.990Z",
+      "machine": "MC",
+      "nonProduction": false,
+      "productCode": "P001",
+      "amount": "120",
+      "mt": "180",
+      "st": "360",
+      "cmt": "first time",
+      "passFail": true,
+      "failAmount": "1",
+      "id": 1
+    },
+    {
+      "employeeName": "Min",
+      "date": "2022-03-10T05:47:04.548Z",
+      "machine": "MC",
+      "nonProduction": true,
+      "productCode": "",
+      "amount": "",
+      "mt": "",
+      "st": "40",
+      "cmt": "drilling",
+      "passFail": false,
+      "failAmount": "",
+      "id": 2
+    },
+    {
+      "employeeName": "Soe",
+      "date": "2022-03-10T05:48:08.330Z",
+      "machine": "MC",
+      "nonProduction": false,
+      "productCode": "P002",
+      "amount": "10",
+      "mt": "60",
+      "st": "120",
+      "cmt": "",
+      "passFail": false,
+      "failAmount": "",
+      "id": 3
+    },
+    {
+      "employeeName": "Soe",
+      "date": "2022-03-10T05:59:23.428Z",
+      "machine": "RADIAL",
+      "nonProduction": true,
+      "productCode": "P006",
+      "amount": "10",
+      "mt": "",
+      "st": "60",
+      "cmt": "helping",
+      "passFail": false,
+      "failAmount": "",
+      "id": 4
+    },
+    {
+      "employeeName": "Aung",
+      "date": "2022-03-16T15:00:00.000Z",
+      "machine": "MILLAC",
+      "nonProduction": true,
+      "productCode": "",
+      "amount": "",
+      "mt": "",
+      "st": "60",
+      "cmt": "learning",
+      "passFail": false,
+      "failAmount": "",
+      "id": 5
+    },
+    {
+      "employeeName": "Min",
+      "date": "2022-03-17T15:00:00.000Z",
+      "machine": "MC",
+      "nonProduction": true,
+      "productCode": "O002",
+      "amount": "20",
+      "mt": "",
+      "st": "80",
+      "cmt": "sorting",
+      "passFail": false,
+      "failAmount": "",
+      "id": 6
+    },
+    {
+      "employeeName": "Soe",
+      "date": "2022-03-16T15:00:00.000Z",
+      "machine": "MILLAC",
+      "nonProduction": true,
+      "productCode": "KMA00320",
+      "amount": "50",
+      "mt": "",
+      "st": "60",
+      "cmt": "sorting",
+      "passFail": false,
+      "failAmount": "",
+      "id": 7
+    }
+  ],
+  "reportList": [
+    {
+      "date": "2022-03-04T01:19:00.990Z",
+      "employeeName": "Min",
+      "totalWorkingTime": "480",
+      "info": [
+        {
+          "machine": "MC",
+          "st": "120"
+        },
+        {
+          "machine": "MILLAC",
+          "st": "360"
+        }
+      ]
+    },
+    {
+      "date": "2022-03-04T01:19:00.990Z",
+      "employeeName": "Soe",
+      "totalWorkingTime": "560",
+      "info": [
+        {
+          "machine": "MC",
+          "st": "60"
+        },
+        {
+          "machine": "MILLAC",
+          "st": "500"
+        }
+      ]
+    },
+    {
+      "date": "2022-03-04T01:19:00.990Z",
+      "employeeName": "Aung",
+      "totalWorkingTime": "480",
+      "info": [
+        {
+          "machine": "MC",
+          "st": "480"
+        }
+      ]
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

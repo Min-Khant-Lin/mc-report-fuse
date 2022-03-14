@@ -16,20 +16,24 @@ export interface McReport {
     cmt?: string;
 }
 
-export interface McReportInfo{
-    date?: Date;
-    employeeName?: string;
-    totalWorkingTime?: number;
-    info:MachineAndSt[]
+export interface McDailyReport {
+    employeeName?:string;
+    date?:Date;
+    totalSt: number;
+    detail:McReportDetail[];
 }
 
-export interface MachineAndSt{
-    machine:string;
-    st: string;
-}
-
-export interface McReportPagination {
-    count: number;
-    page: number;
-    page_size: number;
+export interface McReportDetail{
+    machine?: string;
+    isProduction?:boolean;
+    customerCode?:string;
+    material?:string;
+    productCode?:string;
+    amount?: number;
+    passFail?: boolean;
+    failAmount?: number;
+    failReason?:string;
+    mt?: number;
+    st?: number;
+    cmt?: string;
 }

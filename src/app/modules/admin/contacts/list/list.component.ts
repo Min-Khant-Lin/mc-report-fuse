@@ -6,10 +6,9 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { filter, fromEvent, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { Contact, Country } from 'app/modules/admin/contacts/contacts.types';
-import { ContactsService } from 'app/modules/admin/contacts/contacts.service';
 
 import { McReportService } from '../mc-report.service';
-import { McReportInfo } from '../model';
+import { McDailyReport } from '../model';
 
 @Component({
     selector       : 'contacts-list',
@@ -21,15 +20,19 @@ export class ContactsListComponent implements OnInit, OnDestroy
 {
     @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
 
-    mcReportInfoList?: McReportInfo[];
-
+    mcDailyReports$: Observable<McDailyReport[]>;
     contacts$: Observable<Contact[]>;
 
+    mcDailyReportCount: number = 0;
     contactsCount: number = 0;
+
     contactsTableColumns: string[] = ['name', 'email', 'phoneNumber', 'job'];
     countries: Country[];
+    
     drawerMode: 'side' | 'over';
+    
     searchInputControl: FormControl = new FormControl();
+    
     selectedContact: Contact;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -39,12 +42,11 @@ export class ContactsListComponent implements OnInit, OnDestroy
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _changeDetectorRef: ChangeDetectorRef,
-        private _contactsService: ContactsService,
         @Inject(DOCUMENT) private _document: any,
         private _router: Router,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         
-        private _mcReportService: McReportService,
+        private mcService: McReportService,
         
         )
     {
@@ -59,8 +61,10 @@ export class ContactsListComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        this.getMcReportInfo()
-
+        this.mcService.getMcDailyReports().subscribe();
+        this.mcDailyReports$ = this.mcService.mcDailyReports$;
+        console.log(this.mcDailyReports$)
+        
         // Subscribe to MatDrawer opened change
         this.matDrawer.openedChange.subscribe((opened) => {
             if ( !opened )
@@ -75,17 +79,6 @@ export class ContactsListComponent implements OnInit, OnDestroy
 
     }
 
-    getMcReportInfo(){
-        this._mcReportService.getReportInfo().subscribe({
-            next:(res)=>{
-                console.log(res);
-                this.mcReportInfoList= res;
-            },
-            error:()=>{
-                alert('Error while getting Data.')
-            }
-        })
-    }
     /**
      * On destroy
      */

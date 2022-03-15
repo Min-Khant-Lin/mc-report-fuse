@@ -26,14 +26,16 @@ export class ContactsListComponent implements OnInit, OnDestroy
     mcDailyReportCount: number = 0;
     contactsCount: number = 0;
 
-    contactsTableColumns: string[] = ['name', 'email', 'phoneNumber', 'job'];
-    countries: Country[];
+    // contactsTableColumns: string[] = ['name', 'email', 'phoneNumber', 'job'];
+    // countries: Country[];
     
     drawerMode: 'side' | 'over';
     
     searchInputControl: FormControl = new FormControl();
     
+    selectedMcDailyReport: McDailyReport;
     selectedContact: Contact;
+
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -46,7 +48,7 @@ export class ContactsListComponent implements OnInit, OnDestroy
         private _router: Router,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         
-        private mcService: McReportService,
+        private _mcService: McReportService,
         
         )
     {
@@ -61,8 +63,9 @@ export class ContactsListComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        this.mcService.getMcDailyReports().subscribe();
-        this.mcDailyReports$ = this.mcService.mcDailyReports$;
+        // this._mcService.getMcDailyReports().subscribe();
+        this.mcDailyReports$ = this._mcService.mcDailyReports$;
+
         console.log(this.mcDailyReports$)
         
         // Subscribe to MatDrawer opened change
@@ -70,14 +73,31 @@ export class ContactsListComponent implements OnInit, OnDestroy
             if ( !opened )
             {
                 // Remove the selected contact when drawer closed
-                this.selectedContact = null;
+                // this.selectedContact = null;
 
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
             }
         });
 
+        // Subscribe to media changes
+        this._fuseMediaWatcherService.onMediaChange$
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(({matchingAliases}) => {
+                // Set the drawerMode if the given breakpoint is active
+                if ( matchingAliases.includes('lg') )
+                {
+                    this.drawerMode = 'side';
+                }
+                else
+                {
+                    this.drawerMode = 'over';
+                }
+                // Mark for check
+                this._changeDetectorRef.markForCheck();
+            });
     }
+
 
     /**
      * On destroy

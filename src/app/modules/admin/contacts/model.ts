@@ -1,6 +1,6 @@
 export interface McReport {
     id?:number;
-    employeeName?: string;
+    userId?: number;
     date?: Date;
     machine?: string;
     isProduction:boolean;
@@ -17,7 +17,8 @@ export interface McReport {
 }
 
 export interface McDailyReport {
-    employeeName?:string;
+    userId?: number;
+    userName?:string;
     date?:Date;
     totalSt: number;
     detail:McReportDetail[];

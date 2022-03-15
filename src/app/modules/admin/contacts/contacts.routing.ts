@@ -4,6 +4,7 @@ import { ContactsContactResolver, ContactsCountriesResolver, ContactsResolver, C
 import { ContactsComponent } from 'app/modules/admin/contacts/contacts.component';
 import { ContactsListComponent } from 'app/modules/admin/contacts/list/list.component';
 import { ContactsDetailsComponent } from 'app/modules/admin/contacts/details/details.component';
+import { McDailyReportResolver, McDailyReportsResolver } from './mc-report.resolvers';
 
 export const contactsRoutes: Route[] = [
     {
@@ -17,16 +18,18 @@ export const contactsRoutes: Route[] = [
                 path     : '',
                 component: ContactsListComponent,
                 resolve  : {
-                    contacts : ContactsResolver,
-                    countries: ContactsCountriesResolver
+                    mcDailyReports: McDailyReportsResolver,
+                    // contacts : ContactsResolver,
+                    // countries: ContactsCountriesResolver
                 },
                 children : [
                     {
                         path         : ':id',
                         component    : ContactsDetailsComponent,
                         resolve      : {
-                            contact  : ContactsContactResolver,
-                            countries: ContactsCountriesResolver
+                            mcDailyReport: McDailyReportResolver,
+                        //     contact  : ContactsContactResolver,
+                        //     countries: ContactsCountriesResolver
                         },
                         canDeactivate: [CanDeactivateContactsDetails]
                     }

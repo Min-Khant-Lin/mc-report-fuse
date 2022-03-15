@@ -33,9 +33,25 @@
                                 class="icon-size-5"
                                 [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
                             <span class="ml-2">Edit</span>
+                            <span class="ml-2">{{mcDailyReport}}</span>
                         </button>
                     </div>
                 </div>
+
+                <!-- Name -->
+                <div class="mt-3 text-4xl font-bold truncate">{{mcDailyReport.userName}}</div>
+
+                <!-- Tags -->
+                <ng-container *ngIf="mcDailyReport">
+                    <div class="flex flex-wrap items-center mt-2">
+                        <!-- Tag -->
+                        <ng-container *ngFor="let detail of mcDailyReport.detail">
+                            <div class="flex items-center justify-center py-1 px-3 mr-3 mb-3 rounded-full leading-normal text-gray-500 bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
+                                <span class="text-sm font-medium whitespace-nowrap">{{detail.machine}}</span>
+                            </div>
+                        </ng-container>
+                    </div>
+                </ng-container>
 
             </div>
         </div>

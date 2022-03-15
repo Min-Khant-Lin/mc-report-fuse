@@ -41,7 +41,10 @@ export class McDailyReportResolver implements Resolve<any>
     /**
      * Constructor
      */
-    constructor(private _mcService: McReportService)
+    constructor(
+        private _mcService: McReportService,
+        private _router: Router,
+    )
     {
     }
 
@@ -57,6 +60,23 @@ export class McDailyReportResolver implements Resolve<any>
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<McDailyReport>
     {
-        return this._mcService.getMcDailyReportByUserId(route.paramMap.get('id'));
+        return this._mcService.getMcDailyReportByUserId(route.paramMap.get('userId'))
+            .pipe(
+                // Error here means the requested contact is not available
+                catchError((error) => {
+
+                    // Log the error
+                    console.error(error);
+
+                    // Get the parent url
+                    const parentUrl = state.url.split('/').slice(0, -1).join('/');
+
+                    // Navigate to there
+                    this._router.navigateByUrl(parentUrl);
+
+                    // Throw an error
+                    return throwError(error);
+                })
+            );
     }
 }

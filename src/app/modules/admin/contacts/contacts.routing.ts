@@ -24,7 +24,7 @@ export const contactsRoutes: Route[] = [
                 },
                 children : [
                     {
-                        path         : ':id',
+                        path         : ':userId',
                         component    : ContactsDetailsComponent,
                         resolve      : {
                             mcDailyReport: McDailyReportResolver,

@@ -43,7 +43,7 @@ export class McReportService {
       )
       .pipe(
         tap((res)=>{
-          this._mcDailyReport.next(res);
+          this._mcDailyReport.next(res[0]);
         })
       )   
   }

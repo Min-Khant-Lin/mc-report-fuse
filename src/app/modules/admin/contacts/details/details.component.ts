@@ -73,19 +73,20 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
 
         // Get the contact
         this._mcService.mcDailyReport$
-        .pipe(takeUntil(this._unsubscribeAll))
-        .subscribe((mcDailyReport: McDailyReport) => {
-            // Open the drawer in case it is closed
-            this._contactsListComponent.matDrawer.open();
-        
-            // Get the contact
-            this.mcDailyReport = mcDailyReport;
-        
-            // Toggle the edit mode off
-            this.toggleEditMode(false);
-        
-            // Mark for check
-            this._changeDetectorRef.markForCheck();
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((mcDailyReport: McDailyReport) => {
+                // Open the drawer in case it is closed
+                this._contactsListComponent.matDrawer.open();
+            
+                // Get the contact
+                this.mcDailyReport = mcDailyReport;
+                console.log(this.mcDailyReport)
+            
+                // Toggle the edit mode off
+                this.toggleEditMode(false);
+            
+                // Mark for check
+                this._changeDetectorRef.markForCheck();
         });
     }
 

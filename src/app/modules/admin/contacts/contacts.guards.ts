@@ -32,7 +32,7 @@ export class CanDeactivateContactsDetails implements CanDeactivate<ContactsDetai
         }
 
         // If we are navigating to another contact...
-        if ( nextRoute.paramMap.get('id') )
+        if ( nextRoute.paramMap.get('userId') )
         {
             // Just navigate
             return true;

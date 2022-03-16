@@ -9,11 +9,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : '/example'
     },    {
-        id   : 'contact',
-        title: 'Contact',
+        id   : 'mc-report',
+        title: 'MC Report',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/contacts'
+        link : '/mc-report'
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [

@@ -6,11 +6,10 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { debounceTime, Observable, Subject, takeUntil } from 'rxjs';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { Contact, Country, Tag } from 'app/modules/admin/contacts/contacts.types';
-import { ContactsListComponent } from 'app/modules/admin/contacts/list/list.component';
-import { ContactsService } from 'app/modules/admin/contacts/contacts.service';
+
 import { McDailyReport } from '../model';
 import { McReportService } from '../mc-report.service';
+import { McReportListComponent } from '../list/list.component';
 
 @Component({
     selector       : 'contacts-details',
@@ -18,7 +17,7 @@ import { McReportService } from '../mc-report.service';
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContactsDetailsComponent implements OnInit, OnDestroy
+export class McReportDetailsComponent implements OnInit, OnDestroy
 {
     @ViewChild('avatarFileInput') private _avatarFileInput: ElementRef;
     @ViewChild('tagsPanel') private _tagsPanel: TemplateRef<any>;
@@ -28,13 +27,9 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
     mcDailyReport: McDailyReport;
 
     editMode: boolean = false;
-    tags: Tag[];
+
     tagsEditMode: boolean = false;
-    filteredTags: Tag[];
-    contact: Contact;
-    contactForm: FormGroup;
-    contacts: Contact[];
-    countries: Country[];
+
     private _tagsPanelOverlayRef: OverlayRef;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -44,15 +39,14 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _changeDetectorRef: ChangeDetectorRef,
-        private _contactsListComponent: ContactsListComponent,
-        private _contactsService: ContactsService,
-        private _formBuilder: FormBuilder,
+
         private _fuseConfirmationService: FuseConfirmationService,
         private _renderer2: Renderer2,
         private _router: Router,
         private _overlay: Overlay,
         private _viewContainerRef: ViewContainerRef,
 
+        private _mcReportListComponent : McReportListComponent,
         private _mcService: McReportService,
     )
     {
@@ -69,14 +63,14 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
     {
 
         // Open the drawer
-        this._contactsListComponent.matDrawer.open();
+        this._mcReportListComponent.matDrawer.open();
 
         // Get the contact
         this._mcService.mcDailyReport$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((mcDailyReport: McDailyReport) => {
                 // Open the drawer in case it is closed
-                this._contactsListComponent.matDrawer.open();
+                this._mcReportListComponent.matDrawer.open();
             
                 // Get the contact
                 this.mcDailyReport = mcDailyReport;
@@ -115,7 +109,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
      */
     closeDrawer(): Promise<MatDrawerToggleResult>
     {
-        return this._contactsListComponent.matDrawer.close();
+        return this._mcReportListComponent.matDrawer.close();
     }
 
     /**
@@ -138,26 +132,6 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
         this._changeDetectorRef.markForCheck();
     }
 
-    /**
-     * Update the contact
-     */
-    updateContact(): void
-    {
-        // Get the contact object
-        const contact = this.contactForm.getRawValue();
-
-        // Go through the contact object and clear empty values
-        contact.emails = contact.emails.filter(email => email.email);
-
-        contact.phoneNumbers = contact.phoneNumbers.filter(phoneNumber => phoneNumber.phoneNumber);
-
-        // Update the contact on the server
-        this._contactsService.updateContact(contact.id, contact).subscribe(() => {
-
-            // Toggle the edit mode off
-            this.toggleEditMode(false);
-        });
-    }
 
     /**
      * Delete the contact

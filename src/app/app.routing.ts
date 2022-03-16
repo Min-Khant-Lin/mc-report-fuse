@@ -75,7 +75,7 @@ export const appRoutes: Route[] = [
         },
         children   : [
             {path: 'example', loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule)},
-            {path: 'contacts', loadChildren: () => import('app/modules/admin/contacts/contacts.module').then(m => m.ContactsModule)}
+            {path: 'mc-report', loadChildren: () => import('app/modules/admin/mc-report/mc-report.module').then(m => m.McReportModule)}
         ]
     }
 ];

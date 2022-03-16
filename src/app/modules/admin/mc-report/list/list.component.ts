@@ -5,7 +5,6 @@ import { FormControl } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
 import { filter, fromEvent, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { Contact, Country } from 'app/modules/admin/contacts/contacts.types';
 
 import { McReportService } from '../mc-report.service';
 import { McDailyReport } from '../model';
@@ -16,15 +15,13 @@ import { McDailyReport } from '../model';
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContactsListComponent implements OnInit, OnDestroy
+export class McReportListComponent implements OnInit, OnDestroy
 {
     @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
 
     mcDailyReports$: Observable<McDailyReport[]>;
-    contacts$: Observable<Contact[]>;
 
     mcDailyReportCount: number = 0;
-    contactsCount: number = 0;
 
     // contactsTableColumns: string[] = ['name', 'email', 'phoneNumber', 'job'];
     // countries: Country[];
@@ -34,7 +31,6 @@ export class ContactsListComponent implements OnInit, OnDestroy
     searchInputControl: FormControl = new FormControl();
     
     selectedMcDailyReport: McDailyReport;
-    selectedContact: Contact;
 
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 

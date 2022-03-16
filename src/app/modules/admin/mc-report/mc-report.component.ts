@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-    selector       : 'contacts',
-    templateUrl    : './contacts.component.html',
+    selector       : 'mc-report',
+    templateUrl    : './mc-report.component.html',
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContactsComponent
+export class McReportComponent
 {
     /**
      * Constructor

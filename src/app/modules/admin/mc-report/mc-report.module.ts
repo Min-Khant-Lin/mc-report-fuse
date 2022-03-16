@@ -19,19 +19,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import * as moment from 'moment';
 import { FuseFindByKeyPipeModule } from '@fuse/pipes/find-by-key';
 import { SharedModule } from 'app/shared/shared.module';
-import { contactsRoutes } from 'app/modules/admin/contacts/contacts.routing';
-import { ContactsComponent } from 'app/modules/admin/contacts/contacts.component';
-import { ContactsDetailsComponent } from 'app/modules/admin/contacts/details/details.component';
-import { ContactsListComponent } from 'app/modules/admin/contacts/list/list.component';
 
+import { McReportComponent } from './mc-report.component';
+import { McReportListComponent } from './list/list.component';
+import { McReportDetailsComponent } from './details/details.component';
+import { mcReportRoutes } from './mc-report.routing';
 @NgModule({
     declarations: [
-        ContactsComponent,
-        ContactsListComponent,
-        ContactsDetailsComponent
+        McReportComponent,
+        McReportListComponent,
+        McReportDetailsComponent
     ],
     imports     : [
-        RouterModule.forChild(contactsRoutes),
+        RouterModule.forChild(mcReportRoutes),
         MatButtonModule,
         MatCheckboxModule,
         MatDatepickerModule,
@@ -68,6 +68,6 @@ import { ContactsListComponent } from 'app/modules/admin/contacts/list/list.comp
         }
     ]
 })
-export class ContactsModule
+export class McReportModule
 {
 }

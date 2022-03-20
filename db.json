@@ -1,206 +1,187 @@
 {
-    "reports": [
-        {
-            "employeeName": "Min",
-            "date": "2022-03-04T01:19:00.990Z",
-            "machine": "MC",
-            "nonProduction": false,
-            "productCode": "P001",
-            "amount": "120",
-            "mt": "180",
-            "st": "360",
-            "cmt": "first time",
-            "passFail": true,
-            "failAmount": "1",
-            "id": 1
-        },
-        {
-            "employeeName": "Min",
-            "date": "2022-03-10T05:47:04.548Z",
-            "machine": "MC",
-            "nonProduction": true,
-            "productCode": "",
-            "amount": "",
-            "mt": "",
-            "st": "40",
-            "cmt": "drilling",
-            "passFail": false,
-            "failAmount": "",
-            "id": 2
-        },
-        {
-            "employeeName": "Soe",
-            "date": "2022-03-10T05:48:08.330Z",
-            "machine": "MC",
-            "nonProduction": false,
-            "productCode": "P002",
-            "amount": "10",
-            "mt": "60",
-            "st": "120",
-            "cmt": "",
-            "passFail": false,
-            "failAmount": "",
-            "id": 3
-        },
-        {
-            "employeeName": "Soe",
-            "date": "2022-03-10T05:59:23.428Z",
-            "machine": "RADIAL",
-            "nonProduction": true,
-            "productCode": "P006",
-            "amount": "10",
-            "mt": "",
-            "st": "60",
-            "cmt": "helping",
-            "passFail": false,
-            "failAmount": "",
-            "id": 4
-        },
-        {
-            "employeeName": "Aung",
-            "date": "2022-03-16T15:00:00.000Z",
-            "machine": "MILLAC",
-            "nonProduction": true,
-            "productCode": "",
-            "amount": "",
-            "mt": "",
-            "st": "60",
-            "cmt": "learning",
-            "passFail": false,
-            "failAmount": "",
-            "id": 5
-        },
-        {
-            "employeeName": "Min",
-            "date": "2022-03-17T15:00:00.000Z",
-            "machine": "MC",
-            "nonProduction": true,
-            "productCode": "O002",
-            "amount": "20",
-            "mt": "",
-            "st": "80",
-            "cmt": "sorting",
-            "passFail": false,
-            "failAmount": "",
-            "id": 6
-        },
-        {
-            "employeeName": "Soe",
-            "date": "2022-03-16T15:00:00.000Z",
-            "machine": "MILLAC",
-            "nonProduction": true,
-            "productCode": "KMA00320",
-            "amount": "50",
-            "mt": "",
-            "st": "60",
-            "cmt": "sorting",
-            "passFail": false,
-            "failAmount": "",
-            "id": 7
-        }
-    ],
-    "mcDailyReports": [
-        {
-            "userId": 1,
-            "userName": "Min",
-            "date": "2022-03-04T01:19:00.990Z",
-            "totalSt": "640",
-            "detail": [
-                {
-                    "machine": "MC",
-                    "isProduction": true,
-                    "customerCode":"HBS",
-                    "material":"SS",
-                    "productCode": "P01",
-                    "amount": "100",
-                    "passFail": false,
-                    "failAmount": "",
-                    "failReason":"",
-                    "mt": "60",
-                    "st": "180",
-                    "cmt": "",
-                    "id": 1
-                },
-                {
-                  "machine": "MILLAC",
-                  "isProduction": true,
-                  "customerCode":"HBS",
-                  "material":"SS",
-                  "productCode": "P02",
-                  "amount": "50",
-                  "passFail": false,
-                  "failAmount": "",
-                  "failReason":"",
-                  "mt": "120",
-                  "st": "360",
-                  "cmt": "",
-                  "id": 2
-                }
-            ]
-        },
-        {    
-            "userId": 2,
-            "userName": "Soe",
-            "date": "2022-03-04T01:19:00.990Z",
-            "totalSt": "480",
-            "detail": [
-                {
-                    "machine": "MC",
-                    "isProduction": true,
-                    "customerCode":"HBS",
-                    "material":"SS",
-                    "productCode": "P01",
-                    "amount": "100",
-                    "passFail": false,
-                    "failAmount": "",
-                    "failReason":"",
-                    "mt": "60",
-                    "st": "120",
-                    "cmt": "",
-                    "id": 3
-                },
-                {
-                  "machine": "MILLAC",
-                  "isProduction": true,
-                  "customerCode":"HBS",
-                  "material":"SS",
-                  "productCode": "P02",
-                  "amount": "50",
-                  "passFail": false,
-                  "failAmount": "",
-                  "failReason":"",
-                  "mt": "120",
-                  "st": "360",
-                  "cmt": "",
-                  "id": 4
-                }
-            ]
-        },
-        {
-            "userId": 3,
-            "userName": "Aung",
-            "date": "2022-03-04T01:19:00.990Z",
-            "totalSt": "480",
-            "detail": [
-                {
-                    "machine": "MC",
-                    "isProduction": true,
-                    "customerCode":"HBS",
-                    "material":"SS",
-                    "productCode": "P01",
-                    "amount": "100",
-                    "passFail": false,
-                    "failAmount": "",
-                    "failReason":"",
-                    "mt": "60",
-                    "st": "480",
-                    "cmt": "",
-                    "id": 5
-                }
-            ]
-        }
-    ],
-    "profile": {
-        "name": "typicode"
+  "mcReports": [
+    {
+      "userName": "Min",
+      "date": "2022-03-04T01:19:00.990Z",
+      "machine": "MILLAC",
+      "isProduction": true,
+      "customerCode": "HBS",
+      "material": "SS",
+      "productCode": "P01",
+      "amount": "100",
+      "passFail": false,
+      "failAmount": "",
+      "failReason": "",
+      "mt": "60",
+      "st": "180",
+      "cmt": "",
+      "checked": "",
+      "id": 1
+    },
+    {
+      "employeeName": "Soe",
+      "date": "2022-03-10T05:47:04.548Z",
+      "machine": "MC",
+      "isProduction": true,
+      "customerCode": "HBS",
+      "material": "SS",
+      "productCode": "P01",
+      "amount": "100",
+      "passFail": false,
+      "failAmount": "",
+      "failReason": "",
+      "mt": "60",
+      "st": "180",
+      "cmt": "",
+      "checked": "",
+      "id": 2
+    },
+    {
+      "id": 3,
+      "userName": "Aung",
+      "date": "2022-03-18T15:00:00.000Z",
+      "machine": "MC",
+      "isProduction": "",
+      "customerCode": "HCM",
+      "material": "SS",
+      "productCode": "P04",
+      "amount": "20",
+      "passFail": false,
+      "failAmount": "",
+      "failReason": "",
+      "mt": "60",
+      "st": "180",
+      "cmt": "",
+      "checked": ""
     }
+  ],
+  "mcDailyReports": [
+    {
+      "userId": 1,
+      "userName": "Min",
+      "date": "2022-03-04T01:19:00.990Z",
+      "totalSt": "640",
+      "reports": [
+        {
+          "machine": "MC",
+          "machineSt": "120",
+          "detail": [
+            {
+              "isProduction": true,
+              "customerCode": "HBS",
+              "material": "SS",
+              "productCode": "P01",
+              "amount": "100",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "60",
+              "st": "180",
+              "cmt": "",
+              "checked": true,
+              "id": 1
+            },
+            {
+              "isProduction": true,
+              "customerCode": "HBS",
+              "material": "SS",
+              "productCode": "P01",
+              "amount": "100",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "60",
+              "st": "180",
+              "cmt": "",
+              "checked": true,
+              "id": 2
+            }
+          ]
+        },
+        {
+          "machine": "MILLAC",
+          "machineSt": "50",
+          "detail": [
+            {
+              "isProduction": true,
+              "customerCode": "HBS",
+              "material": "SS",
+              "productCode": "P01",
+              "amount": "100",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "60",
+              "st": "180",
+              "cmt": "",
+              "checked": true,
+              "id": 1
+            },
+            {
+              "isProduction": true,
+              "customerCode": "HBS",
+              "material": "SS",
+              "productCode": "P01",
+              "amount": "100",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "60",
+              "st": "180",
+              "cmt": "",
+              "checked": true,
+              "id": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "userId": 2,
+      "userName": "Soe",
+      "date": "2022-03-04T01:19:00.990Z",
+      "totalSt": "640",
+      "reports": [
+        {
+          "machine": "MC",
+          "machineSt": "120",
+          "detail": [
+            {
+              "isProduction": true,
+              "customerCode": "HBS",
+              "material": "SS",
+              "productCode": "P01",
+              "amount": "100",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "60",
+              "st": "180",
+              "cmt": "",
+              "checked": true,
+              "id": 1
+            },
+            {
+              "isProduction": true,
+              "customerCode": "HBS",
+              "material": "SS",
+              "productCode": "P01",
+              "amount": "100",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "60",
+              "st": "180",
+              "cmt": "",
+              "checked": true,
+              "id": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
 }

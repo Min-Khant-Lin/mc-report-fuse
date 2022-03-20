@@ -59,6 +59,7 @@
                             class="ml-4"
                             mat-flat-button
                             [color]="'primary'"
+                            [routerLink]="['add']"
                             >
                             <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                             <span class="ml-2 mr-1">Add</span>
@@ -104,12 +105,17 @@
                                         <div class="font-medium">{{mcDailyReport.userName}}</div>
 
                                         <div class="grid grid-cols-2 text-secondary"
-                                            *ngFor="let detail of mcDailyReport.detail">
-                                            <div class="">{{detail.machine}}</div>
-                                            <div class="px-5">{{detail.st}}</div>
+                                            *ngFor="let report of mcDailyReport.reports">
+                                            
+                                            <div class="">{{report.machine}}---{{report.machineSt}}分</div>
+
+                                            <div class="px-5"
+                                                *ngFor="let detail of report.machine.detail">
+                                                {{detail.st}}
+                                            </div>
                                         </div>
 
-                                        <div class="">{{mcDailyReport.totalSt}}</div>
+                                        <div class="">合計：{{mcDailyReport.totalSt}}分</div>
                                     </div>
                                 </a>
                             </ng-container>

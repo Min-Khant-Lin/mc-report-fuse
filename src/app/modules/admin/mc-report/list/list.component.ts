@@ -10,7 +10,7 @@ import { McReportService } from '../mc-report.service';
 import { McDailyReport } from '../model';
 
 @Component({
-    selector       : 'contacts-list',
+    selector       : 'mc-report-list',
     templateUrl    : './list.component.html',
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, Renderer2, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, Renderer2, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -7,12 +7,17 @@ import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { debounceTime, Observable, Subject, takeUntil } from 'rxjs';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 
-import { McDailyReport } from '../model';
+import { McDailyReport, McReport } from '../model';
 import { McReportService } from '../mc-report.service';
 import { McReportListComponent } from '../list/list.component';
 
+import { MatAccordion } from '@angular/material/expansion';
+import {MatDialog} from '@angular/material/dialog';
+import { McReportAddComponent } from '../add/add.component';
+import { McReportAddDetailsComponent } from '../add/details/details.component';
+
 @Component({
-    selector       : 'contacts-details',
+    selector       : 'mc-report-details',
     templateUrl    : './details.component.html',
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -23,6 +28,7 @@ export class McReportDetailsComponent implements OnInit, OnDestroy
     @ViewChild('tagsPanel') private _tagsPanel: TemplateRef<any>;
     @ViewChild('tagsPanelOrigin') private _tagsPanelOrigin: ElementRef;
 
+    @ViewChild(MatAccordion) accordion: MatAccordion;
 
     mcDailyReport: McDailyReport;
 
@@ -48,6 +54,8 @@ export class McReportDetailsComponent implements OnInit, OnDestroy
 
         private _mcReportListComponent : McReportListComponent,
         private _mcService: McReportService,
+
+        public dialog: MatDialog,
     )
     {
     }
@@ -61,7 +69,6 @@ export class McReportDetailsComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-
         // Open the drawer
         this._mcReportListComponent.matDrawer.open();
 
@@ -82,7 +89,9 @@ export class McReportDetailsComponent implements OnInit, OnDestroy
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
         });
+        
     }
+
 
     /**
      * On destroy
@@ -164,6 +173,19 @@ export class McReportDetailsComponent implements OnInit, OnDestroy
 
     }
 
+    openEdit(report: McReport){
+        // Launch the modal
+        this.dialog.open(McReportAddDetailsComponent, {
+            autoFocus: false,
+            data:report
+        })
+            .afterClosed()
+            .subscribe(() => {
+
+                // Go up twice because card routes are setup like this; "card/CARD_ID"
+                // this._router.navigate(['./..'], {relativeTo: this._activatedRoute});
+            });
+    }
 
 
     /**

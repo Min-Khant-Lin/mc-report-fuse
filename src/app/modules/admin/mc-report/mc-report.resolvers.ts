@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@a
 import { catchError, Observable, throwError } from 'rxjs';
 
 import { McReportService } from './mc-report.service';
-import { McDailyReport } from './model';
+import { McDailyReport, McReport } from './model';
 
 @Injectable({
     providedIn: 'root'

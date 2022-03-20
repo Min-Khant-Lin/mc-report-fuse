@@ -1,0 +1,173 @@
+<div class="flex flex-col flex-auto w-64 md:w-160 md:min-w-160 max-h-160 -m-6 overflow-y-auto">
+
+    <!-- Header -->
+    <div class="sticky top-0 z-999 flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium">Report</div>
+        <button
+            mat-icon-button
+            (click)="matDialogRef.close()"
+            [tabIndex]="-1">
+            <mat-icon
+                class="text-current"
+                [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+    </div>
+
+    <!-- Report form -->
+    <form
+        class="flex flex-col flex-0 items-start w-full p-6 sm:p-8 space-y-2 overflow-y-auto"
+        [formGroup]="mcReportForm">
+        
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+            <mat-label>Name</mat-label>
+            <input
+                matInput
+                [formControlName]="'userName'"
+                [placeholder]="'Name'">
+        </mat-form-field>
+
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+            <mat-label>Date</mat-label>
+            <input
+                matInput
+                [matDatepicker]="birthdayDatepicker"
+                [formControlName]="'date'"
+                [placeholder]="'Date'">
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="birthdayDatepicker">
+            </mat-datepicker-toggle>
+            <mat-datepicker #birthdayDatepicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+            <mat-label>Machine</mat-label>
+            <input
+                matInput
+                [formControlName]="'machine'"
+                [placeholder]="'Machine'">
+        </mat-form-field>
+
+        <section class="fuse-mat-no-subscript w-full">
+            <mat-checkbox 
+                formControlName="isProduction" 
+                (change)="toggleProduction()" 
+                class="example-margin">Non Production Report.</mat-checkbox>
+        </section>
+
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+            <mat-label>Customer Code</mat-label>
+            <input
+                matInput
+                [required]="production"
+                formControlName="customerCode"
+                [placeholder]="'Customer Code'">
+        </mat-form-field>
+
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+            <mat-label>Material</mat-label>
+            <input
+                matInput
+                [required]="production"
+                formControlName="material"
+                [placeholder]="'Material'">
+        </mat-form-field>
+
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+            <mat-label>Product Code</mat-label>
+            <input
+                matInput
+                [required]="production"
+                formControlName="productCode"
+                [placeholder]="'Product Code'">
+        </mat-form-field>
+
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+            <mat-label>Amount</mat-label>
+            <input
+                matInput
+                [required]="production"
+                formControlName="amount"
+                [placeholder]="'Amount'">
+        </mat-form-field>
+
+        <section class="fuse-mat-no-subscript w-full">
+            <mat-checkbox formControlName="passFail" 
+            (change)="togglePass()" 
+            class="example-margin">Fail Product Occur.</mat-checkbox>
+        </section>
+
+        <div class="fail"
+            [hidden]="pass">
+
+            <mat-form-field class="fuse-mat-no-subscript w-full">
+                <mat-label>Fail Amount</mat-label>
+                <input
+                    matInput
+                    [required]="!pass"
+                    formControlName="failAmount"
+                    [placeholder]="'Fail Amount'">
+            </mat-form-field>
+    
+            <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+                <mat-label>Fail Reason</mat-label>
+                <textarea
+                    matInput
+                    [required]="!pass"
+                    [formControlName]="'failReason'"
+                    [rows]="1"
+                    cdkTextareaAutosize
+                    [cdkAutosizeMinRows]="1">
+                </textarea>
+            </mat-form-field>    
+        </div>
+        
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+            <mat-label>MT</mat-label>
+            <input
+                matInput
+                [required]="production"
+                formControlName="mt"
+                [placeholder]="'MT'">
+        </mat-form-field>
+
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+            <mat-label>ST</mat-label>
+            <input
+                matInput
+                required
+                formControlName="st"
+                [placeholder]="'ST'">
+        </mat-form-field>
+
+        <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+            <mat-label>CMT</mat-label>
+            <textarea
+                matInput
+                [formControlName]="'cmt'"
+                [rows]="1"
+                cdkTextareaAutosize
+                [cdkAutosizeMinRows]="1">
+            </textarea>
+        </mat-form-field>
+
+        <section class="fuse-mat-no-subscript w-full">
+            <mat-checkbox 
+                formControlName="checked"
+                class="example-margin">Checked.</mat-checkbox>
+        </section>
+
+        <div mat-dialog-actions>
+            <button
+            class="ml-4"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="addMcReport()"
+                >
+                <span class="ml-2 mr-1">Add</span>
+            </button>
+        </div>
+        
+    </form>
+    
+</div>

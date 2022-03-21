@@ -101,21 +101,48 @@
                                         <div class="font-medium leading-5 truncate">{{mcDailyReport.employeeName}}</div>
                                         <div class="leading-5 truncate text-secondary">{{mcDailyReport.totalSt}}</div>
                                     </div> -->
-                                    <div class="grid grid-rows-3">
-                                        <div class="font-medium">{{mcDailyReport.userName}}</div>
+                                    <div class="flex flex-col w-full pr-5">
 
-                                        <div class="grid grid-cols-2 text-secondary"
-                                            *ngFor="let report of mcDailyReport.reports">
-                                            
-                                            <div class="">{{report.machine}}---{{report.machineSt}}分</div>
-
-                                            <div class="px-5"
-                                                *ngFor="let detail of report.machine.detail">
-                                                {{detail.st}}
+                                        <div class="grid grid-cols-2">
+                                            <div>
+                                                <div class="flex flex-end">
+                                                    <mat-icon svgIcon="heroicons_outline:user-circle" class="mr-2"></mat-icon>
+                                                    <span class="font-bold text-lg text-gray-600">
+                                                        {{mcDailyReport.userName}}
+                                                    </span>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="grid justify-items-end">
+                                                <span>{{mcDailyReport.date | date:'longDate'}}</span>
+                                                <!-- <mat-chip-list>
+                                                    <mat-chip *ngIf="false">確認済み</mat-chip>
+                                                    <mat-chip *ngIf="true">未確認</mat-chip>
+                                                </mat-chip-list> -->
                                             </div>
                                         </div>
 
-                                        <div class="">合計：{{mcDailyReport.totalSt}}分</div>
+                                        <div class="grid grid-cols-3 mt-2">
+                                            <div class="col-span-2">
+                                                <mat-chip-list>
+                                                    <mat-chip class="text-secondary"
+                                                    *ngFor="let report of mcDailyReport.reports">
+                                                        {{report.machine}} : {{report.machineSt}}分
+                                                    </mat-chip>
+                                                </mat-chip-list>
+                                            </div>
+                                            <div class="flex justify-end items-end">
+                                                <mat-icon class="mat-icon ml-2 text-orange-500">alarm</mat-icon>
+                                                <span class="text-orange-500 text-lg">
+                                                    {{mcDailyReport.totalSt}}分
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        <!-- <div class="pt-3 font-bold text-lg text-gray-600 grid justify-items-end">
+                                            合計：{{mcDailyReport.totalSt}}分
+                                        </div> -->
                                     </div>
                                 </a>
                             </ng-container>

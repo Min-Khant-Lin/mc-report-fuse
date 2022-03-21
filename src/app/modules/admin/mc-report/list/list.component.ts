@@ -20,8 +20,10 @@ export class McReportListComponent implements OnInit, OnDestroy
     @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
 
     mcDailyReports$: Observable<McDailyReport[]>;
+    mcDailyReports: McDailyReport[];
 
     mcDailyReportCount: number = 0;
+    mcDailyReportCheck: boolean[];
 
     // contactsTableColumns: string[] = ['name', 'email', 'phoneNumber', 'job'];
     // countries: Country[];
@@ -61,8 +63,34 @@ export class McReportListComponent implements OnInit, OnDestroy
     {
         // this._mcService.getMcDailyReports().subscribe();
         this.mcDailyReports$ = this._mcService.mcDailyReports$;
-
-        console.log(this.mcDailyReports$)
+        
+    //     this._mcService.mcDailyReports$
+    //     .pipe(takeUntil(this._unsubscribeAll))
+    //     .subscribe((mcDailyReports: McDailyReport[]) => {
+        
+    //         // Get the contact
+    //         this.mcDailyReports = mcDailyReports;
+    //         var a :number = 0;
+    //         for(var i of this.mcDailyReports){
+    //             // console.log(report)
+    //             for(var report of i['reports']){
+    //                 // console.log(report);
+    //                 var index: number = 1;
+    //                 for(var detail of report['detail']){
+    //                     if(index==1){
+    //                         this.mcDailyReportCheck[a] = detail['checked']
+    //                         index++;
+    //                     }
+    //                     console.log(detail)
+    //                     this.mcDailyReportCheck[a] = this.mcDailyReportCheck[a] && detail['checked']
+    //                 }
+    //                 console.log(this.mcDailyReportCheck)
+    //             }
+    //             a++;
+    //         }
+    //         // console.log(this.mcDailyReports)
+        
+    // });
         
         // Subscribe to MatDrawer opened change
         this.matDrawer.openedChange.subscribe((opened) => {

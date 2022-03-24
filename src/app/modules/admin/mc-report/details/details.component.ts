@@ -13,9 +13,7 @@ import { McReportListComponent } from '../list/list.component';
 
 import { MatAccordion } from '@angular/material/expansion';
 import {MatDialog} from '@angular/material/dialog';
-import { McReportAddComponent } from '../add/add.component';
-import { McReportAddDetailsComponent } from '../add/details/details.component';
-
+import { McReportAddDialogComponent } from '../add/dialog/dialog.component';
 @Component({
     selector       : 'mc-report-details',
     templateUrl    : './details.component.html',
@@ -175,7 +173,7 @@ export class McReportDetailsComponent implements OnInit, OnDestroy
 
     openEdit(report: McReport){
         // Launch the modal
-        this.dialog.open(McReportAddDetailsComponent, {
+        this.dialog.open(McReportAddDialogComponent, {
             autoFocus: false,
             data:report
         })

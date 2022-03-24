@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { McReportAddDetailsComponent } from './details/details.component';
+import { McReportAddDialogComponent } from './dialog/dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -32,7 +32,7 @@ export class McReportAddComponent implements OnInit
     ngOnInit(): void
     {
         // Launch the modal
-        this._matDialog.open(McReportAddDetailsComponent, {
+        this._matDialog.open(McReportAddDialogComponent, {
             autoFocus: false,
             disableClose: true,})
             .afterClosed()

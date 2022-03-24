@@ -7,11 +7,11 @@ import { McReportService } from '../../mc-report.service';
 
 @Component({
     selector       : 'mc-report-add-details',
-    templateUrl    : './details.component.html',
+    templateUrl    : './dialog.component.html',
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush, 
 })
-export class McReportAddDetailsComponent implements OnInit, OnDestroy
+export class McReportAddDialogComponent implements OnInit, OnDestroy
 {
     @ViewChild('labelInput') labelInput: ElementRef<HTMLInputElement>;
     mcReportForm: FormGroup;
@@ -26,7 +26,7 @@ export class McReportAddDetailsComponent implements OnInit, OnDestroy
      * Constructor
      */
     constructor(
-        public matDialogRef: MatDialogRef<McReportAddDetailsComponent>,
+        public matDialogRef: MatDialogRef<McReportAddDialogComponent>,
         private _changeDetectorRef: ChangeDetectorRef,
         private _formBuilder: FormBuilder,
         private _mcService: McReportService,

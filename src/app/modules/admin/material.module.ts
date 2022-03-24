@@ -17,9 +17,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatTab, MatTabsModule} from '@angular/material/tabs';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatExpansionModule} from '@angular/material/expansion';
+import { MatTabsModule} from '@angular/material/tabs';
+import { MatChipsModule} from '@angular/material/chips';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 const material = [
     MatButtonModule,
@@ -42,6 +43,7 @@ const material = [
     MatExpansionModule,
     MatTabsModule,
     MatChipsModule,
+    MatPaginatorModule,
 ];
 
 @NgModule({

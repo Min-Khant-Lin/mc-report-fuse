@@ -3,18 +3,19 @@ import { FuseNavigationItem } from '@fuse/components/navigation';
 
 export const defaultNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
-        title: 'Example',
+        id   : 'delivery-slip',
+        title: 'Delivery Slip',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    },    {
-        id   : 'mc-report',
-        title: 'MC Report',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/mc-report'
-    }
+        link : '/delivery-slip'
+    },    
+    // {
+    //     id   : 'mc-report',
+    //     title: 'MC Report',
+    //     type : 'basic',
+    //     icon : 'heroicons_outline:chart-pie',
+    //     link : '/mc-report'
+    // }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {

@@ -20,10 +20,10 @@ export class McReportListComponent implements OnInit, OnDestroy
     @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
 
     mcDailyReports$: Observable<McDailyReport[]>;
-    mcDailyReports: McDailyReport[];
+    // mcDailyReports: McDailyReport[];
 
     mcDailyReportCount: number = 0;
-    mcDailyReportCheck: boolean[];
+    // mcDailyReportCheck: boolean[];
 
     // contactsTableColumns: string[] = ['name', 'email', 'phoneNumber', 'job'];
     // countries: Country[];
@@ -63,7 +63,7 @@ export class McReportListComponent implements OnInit, OnDestroy
     {
         // this._mcService.getMcDailyReports().subscribe();
         this.mcDailyReports$ = this._mcService.mcDailyReports$;
-        
+        console.log(this.mcDailyReports$)
     //     this._mcService.mcDailyReports$
     //     .pipe(takeUntil(this._unsubscribeAll))
     //     .subscribe((mcDailyReports: McDailyReport[]) => {
@@ -93,6 +93,7 @@ export class McReportListComponent implements OnInit, OnDestroy
     // });
         
         // Subscribe to MatDrawer opened change
+        
         this.matDrawer.openedChange.subscribe((opened) => {
             if ( !opened )
             {

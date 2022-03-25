@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, Renderer2, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, QueryList, Renderer2, TemplateRef, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -26,7 +26,9 @@ export class McReportDetailsComponent implements OnInit, OnDestroy
     @ViewChild('tagsPanel') private _tagsPanel: TemplateRef<any>;
     @ViewChild('tagsPanelOrigin') private _tagsPanelOrigin: ElementRef;
 
-    @ViewChild(MatAccordion) accordion: MatAccordion;
+    // @ViewChild(MatAccordion) accordion: MatAccordion;
+    @ViewChildren(MatAccordion)
+    accordion: QueryList<MatAccordion>;
 
     mcDailyReport: McDailyReport;
 
@@ -110,6 +112,16 @@ export class McReportDetailsComponent implements OnInit, OnDestroy
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
+
+    // Toggle Accordion
+    openAll(i:any){
+        // console.log(this.accordion.get(i))
+        this.accordion.get(i).openAll();
+    }
+
+    closeAll(i:any){
+        this.accordion.get(i).closeAll();
+    }
 
     /**
      * Close the drawer

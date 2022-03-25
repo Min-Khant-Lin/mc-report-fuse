@@ -54,11 +54,11 @@
                 </ng-container>
 
                 <mat-tab-group>
-                    <mat-tab *ngFor="let report of mcDailyReport.reports" label="{{report.machine}}">
+                    <mat-tab *ngFor="let report of mcDailyReport.reports; index as i" label="{{report.machine}}">
                         
                         <div class="example-action-buttons">
-                            <button mat-button (click)="accordion.openAll()">Expand All</button>
-                            <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+                            <button mat-button (click)="openAll(i)">Expand All</button>
+                            <button mat-button (click)="closeAll(i)">Collapse All</button>
                         </div>
 
                           <mat-accordion class="example-headers-align" multi [@.disabled]="true">

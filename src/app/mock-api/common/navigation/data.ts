@@ -9,13 +9,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : '/delivery-slip'
     },    
-    // {
-    //     id   : 'mc-report',
-    //     title: 'MC Report',
-    //     type : 'basic',
-    //     icon : 'heroicons_outline:chart-pie',
-    //     link : '/mc-report'
-    // }
+    {
+        id   : 'mc-report',
+        title: 'MC Report',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/mc-report'
+    }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {

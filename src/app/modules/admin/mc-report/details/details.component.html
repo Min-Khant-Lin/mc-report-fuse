@@ -73,14 +73,17 @@
                                             {{detail.st}}
                                         </mat-panel-description>
                                     </mat-expansion-panel-header>
-                                        {{detail.customerCode}}
-                                        {{detail.material}}
-                                        {{detail.failAmount}}
-                                        {{detail.failReason}}
-                                        {{detail.mt}}
-                                        {{detail.st}}
-                                        {{detail.cmt}}
-                                        {{detail.checked}}
+                                    {{detail.customerCode}}
+                                    {{detail.material}}
+                                    {{detail.failAmount}}
+                                    {{detail.failReason}}
+                                    {{detail.mt}}
+                                    {{detail.st}}
+                                    {{detail.cmt}}
+                                    {{detail.checked}}
+                                    
+                                    <button mat-button (click)="editMcReport(report.machine, detail)">Edit</button>
+                                
                                 </mat-expansion-panel>
                               </div>
                             

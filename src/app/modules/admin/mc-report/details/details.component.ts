@@ -7,13 +7,16 @@ import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { debounceTime, Observable, Subject, takeUntil } from 'rxjs';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 
-import { McDailyReport, McReport } from '../model';
+import { McDailyReport, McReport, McReportDetail } from '../model';
 import { McReportService } from '../mc-report.service';
 import { McReportListComponent } from '../list/list.component';
+import { McReportAddDialogComponent } from '../add/dialog/dialog.component';
 
 import { MatAccordion } from '@angular/material/expansion';
-import {MatDialog} from '@angular/material/dialog';
-import { McReportAddDialogComponent } from '../add/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { delay } from 'lodash';
+
+
 @Component({
     selector       : 'mc-report-details',
     templateUrl    : './details.component.html',
@@ -121,6 +124,25 @@ export class McReportDetailsComponent implements OnInit, OnDestroy
 
     closeAll(i:any){
         this.accordion.get(i).closeAll();
+    }
+
+    editMcReport(machine: any, detail: McReportDetail){
+        detail['userId'] = this.mcDailyReport.userId
+        detail['userName'] = this.mcDailyReport.userName
+        detail['date'] = this.mcDailyReport.date
+        detail['machine'] = machine
+        console.log(detail)
+        
+        this.dialog.open(McReportAddDialogComponent, {
+            autoFocus: false,
+            data: detail,
+          }).afterClosed().subscribe(value => {
+            if(value==='update'){
+                
+                // Mark for check
+                this._changeDetectorRef.markForCheck();
+            }
+          })
     }
 
     /**

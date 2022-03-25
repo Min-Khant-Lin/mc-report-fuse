@@ -5,8 +5,6 @@ import { FormControl } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
 import { filter, fromEvent, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 
 import { CSVRecord } from '../model';
@@ -17,46 +15,20 @@ import { CSVRecord } from '../model';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateA7SlipComponent implements OnInit, AfterViewInit {
+
+export class CreateA7SlipComponent implements OnInit {
+
     @ViewChild('csvReader') csvReader: any;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
-
     records: CSVRecord[] = [];
-    displayedColumns: string[] = [
-        'instruction', 
-        'productCode', 
-        'orderNo',
-        'quantity',
-        'unitPrice',
-    ];
-
     dataSource: MatTableDataSource<any>;
 
     constructor(
         private _changeDetectorRef: ChangeDetectorRef
-        ) 
-        {
-            this.dataSource = new MatTableDataSource();
-        }
+        ){}
 
     ngOnInit(): void {
         // Mark for check
         this._changeDetectorRef.markForCheck();
-    }
-    
-    ngAfterViewInit() {
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-    }
-
-    applyFilter(event: Event) {
-        const filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
-    
-        if (this.dataSource.paginator) {
-          this.dataSource.paginator.firstPage();
-        }
     }
 
     uploadListener($event: any) {
@@ -77,9 +49,8 @@ export class CreateA7SlipComponent implements OnInit, AfterViewInit {
                     csvRecordsArray,
                     headersRow.length
                 );
-                console.log(this.records);
-                this.dataSource = new MatTableDataSource(this.records);
-                
+                // console.log(this.records);
+
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
             };

@@ -4,7 +4,7 @@ export interface McReport {
     userName: string;
     date: Date;
     machine: string;
-    isProduction:boolean;
+    reportType:string;
     customerCode:string;
     material:string;
     productCode:string;
@@ -33,7 +33,8 @@ export interface McReport{
 }
 
 export interface McReportDetail{
-    isProduction:boolean;
+    id: number;
+    reportType:string;
     customerCode:string;
     material:string;
     productCode:string;
@@ -45,5 +46,4 @@ export interface McReportDetail{
     st: number;
     cmt: string;
     checked: boolean;
-    id: number;
 }

@@ -1,10 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { debounceTime, Subject, takeUntil, tap } from 'rxjs';
 import { McReportService } from '../../mc-report.service';
+import { McReport } from '../../model';
 
+const now = new Date();
+const machineList = ['MC', 'MILLAC', 'ラジアル']
 @Component({
     selector       : 'mc-report-add-details',
     templateUrl    : './dialog.component.html',
@@ -15,9 +18,12 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
 {
     @ViewChild('labelInput') labelInput: ElementRef<HTMLInputElement>;
     mcReportForm: FormGroup;
-
-    production = true;
+    machines = machineList
+    production: boolean;
+    help: boolean;
+    other: boolean; 
     pass = true;
+    actionBtn = 'save';
 
     // Private
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -26,13 +32,15 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
      * Constructor
      */
     constructor(
-        public matDialogRef: MatDialogRef<McReportAddDialogComponent>,
-        private _changeDetectorRef: ChangeDetectorRef,
         private _formBuilder: FormBuilder,
         private _mcService: McReportService,
+        
+        public matDialogRef: MatDialogRef<McReportAddDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public editData: McReport,
+
+        private _changeDetectorRef: ChangeDetectorRef,
     )
-    {
-    }
+    {}
 
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
@@ -48,9 +56,9 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
         this.mcReportForm = this._formBuilder.group({
             id:[''],
             userName:[''],
-            date:[''],
+            date:[now],
             machine:[''],
-            isProduction:[''],
+            reportType:[''],
             customerCode:[''],
             material:[''],
             productCode:[''],
@@ -63,6 +71,33 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
             cmt:[''],
             checked:[''],
         })
+
+
+        if (this.editData) {
+            this.actionBtn = 'update';
+            this.mcReportForm.controls['userName'].setValue(this.editData.userName);
+            this.mcReportForm.controls['date'].setValue(this.editData.date);
+            this.mcReportForm.controls['machine'].setValue(this.editData.machine);
+            this.mcReportForm.controls['reportType'].setValue(this.editData.reportType);
+            this.mcReportForm.controls['customerCode'].setValue(this.editData.customerCode);
+            this.mcReportForm.controls['material'].setValue(this.editData.material);
+            this.mcReportForm.controls['productCode'].setValue(this.editData.productCode);
+            this.mcReportForm.controls['amount'].setValue(this.editData.amount);
+            this.mcReportForm.controls['passFail'].setValue(this.editData.passFail);
+            this.mcReportForm.controls['failAmount'].setValue(this.editData.failAmount);
+            this.mcReportForm.controls['failAmount'].setValue(this.editData.failAmount);
+            this.mcReportForm.controls['failReason'].setValue(this.editData.failReason);
+            this.mcReportForm.controls['mt'].setValue(this.editData.mt);
+            this.mcReportForm.controls['st'].setValue(this.editData.st);
+            this.mcReportForm.controls['st'].setValue(this.editData.st);
+            this.mcReportForm.controls['st'].setValue(this.editData.st);
+            // if(this.editData.reportType=="1"){
+            //     this.production= true;
+            // }
+            // else{
+            //     this.production = false;
+            // }
+        }
     }
 
     /**
@@ -82,7 +117,8 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
     addMcReport(){
         console.log(this.mcReportForm.value)
         if(this.mcReportForm.valid){
-            this._mcService.createMcReport(this.mcReportForm.value).subscribe({
+            this._mcService.createMcReport(this.mcReportForm.value)
+            .subscribe({
                 next:(res)=>{
                     this.mcReportForm.reset();
                     this.matDialogRef.close('save');

@@ -41,19 +41,28 @@
         </mat-form-field>
 
         <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>Machine</mat-label>
-            <input
-                matInput
-                [formControlName]="'machine'"
-                [placeholder]="'Machine'">
+            <mat-label>Select the machine</mat-label>
+            <mat-select formControlName="machine" disableRipple>
+              <mat-option *ngFor="let machine of machines" [value]="machine">{{machine}}</mat-option>
+            </mat-select>
         </mat-form-field>
 
-        <section class="fuse-mat-no-subscript w-full">
+        <!-- <section class="fuse-mat-no-subscript w-full">
             <mat-checkbox 
-                formControlName="isProduction" 
-                (change)="toggleProduction()" 
-                class="example-margin">Non Production Report.</mat-checkbox>
-        </section>
+                formControlName="reportType" 
+                (change)="toggleProduction()"
+                class="example-margin">Production Report.</mat-checkbox>
+        </section> -->
+
+        <mat-radio-group 
+            formControlName="reportType"
+            aria-label="Select an option">
+            <mat-radio-button value="1">Option 1</mat-radio-button>
+            <mat-radio-button value="2">Option 2</mat-radio-button>
+            <mat-radio-button value="3">Option 3</mat-radio-button>
+        </mat-radio-group>
+
+
 
         <mat-form-field class="fuse-mat-no-subscript w-full">
             <mat-label>Customer Code</mat-label>
@@ -164,8 +173,9 @@
                 [color]="'primary'"
                 (click)="addMcReport()"
                 >
-                <span class="ml-2 mr-1">Add</span>
+                <span class="ml-2 mr-1"> {{actionBtn}} </span>
             </button>
+        
         </div>
         
     </form>

@@ -1,4 +1,4 @@
-<div class="flex flex-col flex-auto w-64 md:w-160 md:min-w-160 max-h-160 -m-6 overflow-y-auto">
+<div class="flex flex-col flex-auto w-64 md:w-150 md:min-w-100 max-h-160 -m-6 overflow-y-auto">
 
     <!-- Header -->
     <div class="sticky top-0 z-999 flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
@@ -19,7 +19,7 @@
         [formGroup]="mcReportForm">
         
         <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>Name</mat-label>
+            <mat-label>名称</mat-label>
             <input
                 matInput
                 [formControlName]="'userName'"
@@ -27,7 +27,7 @@
         </mat-form-field>
 
         <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>Date</mat-label>
+            <mat-label>日付</mat-label>
             <input
                 matInput
                 [matDatepicker]="birthdayDatepicker"
@@ -41,8 +41,8 @@
         </mat-form-field>
 
         <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>Select the machine</mat-label>
-            <mat-select formControlName="machine" disableRipple>
+            <mat-label>設備</mat-label>
+            <mat-select formControlName="machine" disableRipple (selectionChange)="saveAtLocalStorage($event)">
               <mat-option *ngFor="let machine of machines" [value]="machine">{{machine}}</mat-option>
             </mat-select>
         </mat-form-field>
@@ -50,95 +50,99 @@
         <!-- <section class="fuse-mat-no-subscript w-full">
             <mat-checkbox 
                 formControlName="reportType" 
-                (change)="toggleProduction()"
-                class="example-margin">Production Report.</mat-checkbox>
+                (change)="togglereportType == 1()"
+                class="example-margin">reportType == 1 Report.</mat-checkbox>
         </section> -->
 
         <mat-radio-group 
             formControlName="reportType"
+            (change)="changeReportType($event)"
             aria-label="Select an option">
-            <mat-radio-button value="1">Option 1</mat-radio-button>
-            <mat-radio-button value="2">Option 2</mat-radio-button>
-            <mat-radio-button value="3">Option 3</mat-radio-button>
+            <mat-radio-button value="1">生産</mat-radio-button>
+            <mat-radio-button value="2">補助</mat-radio-button>
+            <mat-radio-button value="3">非生産</mat-radio-button>
         </mat-radio-group>
 
 
-
-        <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>Customer Code</mat-label>
-            <input
-                matInput
-                [required]="production"
-                formControlName="customerCode"
-                [placeholder]="'Customer Code'">
-        </mat-form-field>
-
-        <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>Material</mat-label>
-            <input
-                matInput
-                [required]="production"
-                formControlName="material"
-                [placeholder]="'Material'">
-        </mat-form-field>
-
-        <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>Product Code</mat-label>
-            <input
-                matInput
-                [required]="production"
-                formControlName="productCode"
-                [placeholder]="'Product Code'">
-        </mat-form-field>
-
-        <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>Amount</mat-label>
-            <input
-                matInput
-                [required]="production"
-                formControlName="amount"
-                [placeholder]="'Amount'">
-        </mat-form-field>
-
-        <section class="fuse-mat-no-subscript w-full">
-            <mat-checkbox formControlName="passFail" 
-            (change)="togglePass()" 
-            class="example-margin">Fail Product Occur.</mat-checkbox>
-        </section>
-
-        <div class="fail"
-            [hidden]="pass">
+        <div class="production-form" [hidden]="reportType == 3">
 
             <mat-form-field class="fuse-mat-no-subscript w-full">
-                <mat-label>Fail Amount</mat-label>
+                <mat-label>客名</mat-label>
                 <input
                     matInput
-                    [required]="!pass"
-                    formControlName="failAmount"
-                    [placeholder]="'Fail Amount'">
+                    [required]="reportType == 1 || reportType == 2"
+                    formControlName="customerCode"
+                    [placeholder]="'Customer Code'">
             </mat-form-field>
     
-            <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
-                <mat-label>Fail Reason</mat-label>
-                <textarea
+            <mat-form-field class="fuse-mat-no-subscript w-full">
+                <mat-label>材質</mat-label>
+                <input
                     matInput
-                    [required]="!pass"
-                    [formControlName]="'failReason'"
-                    [rows]="1"
-                    cdkTextareaAutosize
-                    [cdkAutosizeMinRows]="1">
-                </textarea>
-            </mat-form-field>    
-        </div>
+                    formControlName="material"
+                    [placeholder]="'Material'">
+            </mat-form-field>
+    
+            <mat-form-field class="fuse-mat-no-subscript w-full">
+                <mat-label>図番-片番</mat-label>
+                <input
+                    matInput
+                    [required]="reportType == 1 || reportType == 2"
+                    formControlName="productCode"
+                    [placeholder]="'Product Code'">
+            </mat-form-field>
+    
+            <mat-form-field class="fuse-mat-no-subscript w-full">
+                <mat-label>枚数</mat-label>
+                <input
+                    matInput
+                    [required]="reportType == 1 || reportType == 2"
+                    formControlName="amount"
+                    [placeholder]="'Amount'">
+            </mat-form-field>
+    
+            <section class="fuse-mat-no-subscript w-full">
+                <mat-checkbox formControlName="passFail" 
+                (change)="togglePass()" 
+                class="example-margin">不良</mat-checkbox>
+            </section>
+    
+
+            <div class="fail" [hidden]="pass">
+    
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>不良数</mat-label>
+                    <input
+                        matInput
+                        [required]="!pass"
+                        formControlName="failAmount"
+                        [placeholder]="'Fail Amount'">
+                </mat-form-field>
         
-        <mat-form-field class="fuse-mat-no-subscript w-full">
-            <mat-label>MT</mat-label>
-            <input
-                matInput
-                [required]="production"
-                formControlName="mt"
-                [placeholder]="'MT'">
-        </mat-form-field>
+                <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+                    <mat-label>理由</mat-label>
+                    <textarea
+                        matInput
+                        [required]="!pass"
+                        [formControlName]="'failReason'"
+                        [rows]="1"
+                        cdkTextareaAutosize
+                        [cdkAutosizeMinRows]="1">
+                    </textarea>
+                </mat-form-field>    
+            </div>
+            
+            <mat-form-field [hidden]="reportType == 2" class="fuse-mat-no-subscript w-full">
+                <mat-label>MT</mat-label>
+                <input
+                    matInput
+                    [required]="reportType == 1"
+                    formControlName="mt"
+                    [placeholder]="'MT'">
+            </mat-form-field>
+
+        </div>
+      
 
         <mat-form-field class="fuse-mat-no-subscript w-full">
             <mat-label>ST</mat-label>
@@ -150,7 +154,7 @@
         </mat-form-field>
 
         <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
-            <mat-label>CMT</mat-label>
+            <mat-label>備考</mat-label>
             <textarea
                 matInput
                 [formControlName]="'cmt'"
@@ -163,7 +167,7 @@
         <section class="fuse-mat-no-subscript w-full">
             <mat-checkbox 
                 formControlName="checked"
-                class="example-margin">Checked.</mat-checkbox>
+                class="example-margin">確認</mat-checkbox>
         </section>
 
         <div mat-dialog-actions>

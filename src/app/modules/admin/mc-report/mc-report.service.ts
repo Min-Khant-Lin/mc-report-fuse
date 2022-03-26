@@ -78,7 +78,7 @@ export class McReportService {
   // Update mc report
   updateMcReport(id:any, data:McReport):Observable<McReport>{
     return this.http.put<McReport>(
-      `${baseUrl}/mcDailyReport/${id}`,data
+      `${baseUrl}/mcReports/${id}`,data
       )
       .pipe(
         tap((res)=>{

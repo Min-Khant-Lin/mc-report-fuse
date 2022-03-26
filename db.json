@@ -3,19 +3,19 @@
     {
       "userName": "ミンカンリン",
       "date": "2022-03-04T01:19:00.990Z",
-      "machine": "MILLAC",
+      "machine": "MC",
       "reportType": "1",
       "customerCode": "HBS",
-      "material": "SS400",
-      "productCode": "P001-2",
+      "material": "SS",
+      "productCode": "P001-10",
       "amount": "100",
       "passFail": false,
       "failAmount": "",
       "failReason": "",
-      "mt": "60",
-      "st": "120",
-      "cmt": "",
-      "checked": "",
+      "mt": "180",
+      "st": "360",
+      "cmt": "Update",
+      "checked": true,
       "id": 1
     },
     {
@@ -91,7 +91,7 @@
               "st": "80",
               "cmt": "仕上げ",
               "checked": true,
-              "id": 2
+              "id": 3
             }
           ]
         },
@@ -112,7 +112,7 @@
               "st": "180",
               "cmt": "",
               "checked": true,
-              "id": 1
+              "id": 4
             },
             {
               "reportType": "3",
@@ -127,7 +127,7 @@
               "st": "180",
               "cmt": "C面取り",
               "checked": true,
-              "id": 2
+              "id": 5
             }
           ]
         }
@@ -156,7 +156,7 @@
               "st": "180",
               "cmt": "",
               "checked": true,
-              "id": 1
+              "id": 100
             },
             {
               "reportType": "1",
@@ -171,7 +171,7 @@
               "st": "360",
               "cmt": "",
               "checked": true,
-              "id": 2
+              "id": 101
             }
           ]
         }

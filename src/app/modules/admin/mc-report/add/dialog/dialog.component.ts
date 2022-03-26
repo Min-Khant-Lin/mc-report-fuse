@@ -10,6 +10,7 @@ const now = new Date();
 const machineList = ['MC', 'MILLAC', 'ラジアル']
 @Component({
     selector       : 'mc-report-add-details',
+    styleUrls      :['./dialog.component.scss'],
     templateUrl    : './dialog.component.html',
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush, 
@@ -19,11 +20,9 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
     @ViewChild('labelInput') labelInput: ElementRef<HTMLInputElement>;
     mcReportForm: FormGroup;
     machines = machineList
-    production: boolean;
-    help: boolean;
-    other: boolean; 
+    reportType = 0;
     pass = true;
-    actionBtn = 'save';
+    actionBtn = '登録';
 
     // Private
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -52,9 +51,9 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
     ngOnInit(): void
     {   
 
+
         // Prepare the mc report form
         this.mcReportForm = this._formBuilder.group({
-            id:[''],
             userName:[''],
             date:[now],
             machine:[''],
@@ -72,9 +71,15 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
             checked:[''],
         })
 
+        // Get the initital value
+        var machine = localStorage.getItem("machine")
+        if(machine){
+            this.mcReportForm.controls['machine'].setValue(machine);
+        }
 
+        // Get the edit data
         if (this.editData) {
-            this.actionBtn = 'update';
+            this.actionBtn = '更新';
             this.mcReportForm.controls['userName'].setValue(this.editData.userName);
             this.mcReportForm.controls['date'].setValue(this.editData.date);
             this.mcReportForm.controls['machine'].setValue(this.editData.machine);
@@ -89,14 +94,8 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
             this.mcReportForm.controls['failReason'].setValue(this.editData.failReason);
             this.mcReportForm.controls['mt'].setValue(this.editData.mt);
             this.mcReportForm.controls['st'].setValue(this.editData.st);
-            this.mcReportForm.controls['st'].setValue(this.editData.st);
-            this.mcReportForm.controls['st'].setValue(this.editData.st);
-            // if(this.editData.reportType=="1"){
-            //     this.production= true;
-            // }
-            // else{
-            //     this.production = false;
-            // }
+            this.mcReportForm.controls['cmt'].setValue(this.editData.cmt);
+            this.mcReportForm.controls['checked'].setValue(this.editData.checked);
         }
     }
 
@@ -115,27 +114,54 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
     // -----------------------------------------------------------------------------------------------------
 
     addMcReport(){
+        if(!this.editData){
+            console.log(this.mcReportForm.value)
+            if(this.mcReportForm.valid){
+                this._mcService.createMcReport(this.mcReportForm.value)
+                .subscribe({
+                    next:(res)=>{
+                        this.mcReportForm.reset();
+                        this.matDialogRef.close('save');
+                    },
+                    error:()=>{
+                        alert('Error while adding report.');
+                    }
+                })
+            }
+        }else{
+            this.updateMcReport();
+        }
+    }
+
+    updateMcReport(){
         console.log(this.mcReportForm.value)
         if(this.mcReportForm.valid){
-            this._mcService.createMcReport(this.mcReportForm.value)
+            this._mcService.updateMcReport(this.editData.id, this.mcReportForm.value)
             .subscribe({
                 next:(res)=>{
                     this.mcReportForm.reset();
-                    this.matDialogRef.close('save');
+                    this.matDialogRef.close('update');
                 },
                 error:()=>{
-                    alert('Error while adding report.')
+                    alert('Error while updating report.');
                 }
             })
         }
     }
 
-    toggleProduction(){
-        this.production = !this.production;
-        // if(this.production==false){
-        //   this.pass = true
-        // }
+    changeReportType(event: any){
+        this.reportType = event.value;
     }
+
+    saveAtLocalStorage(event:any){
+        localStorage.setItem("machine", event.value);
+    }
+    // toggleProduction(){
+    //     this.production = !this.production;
+    //     // if(this.production==false){
+    //     //   this.pass = true
+    //     // }
+    // }
 
     togglePass() {
         this.pass = !this.pass;

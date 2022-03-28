@@ -6,12 +6,38 @@ import { debounceTime, Subject, takeUntil, tap } from 'rxjs';
 import { McReportService } from '../../mc-report.service';
 import { McReport } from '../../model';
 
+import { DatePipe } from '@angular/common';
+import {
+    MAT_MOMENT_DATE_FORMATS,
+    MomentDateAdapter,
+    MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+  } from '@angular/material-moment-adapter';
+  import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+  import 'moment/locale/ja';
+  import 'moment/locale/fr';
+
 const now = new Date();
 const machineList = ['MC', 'MILLAC', 'ラジアル']
 @Component({
     selector       : 'mc-report-add-details',
     styleUrls      :['./dialog.component.scss'],
     templateUrl    : './dialog.component.html',
+    providers      :[
+        DatePipe,
+
+        {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
+
+        // `MomentDateAdapter` and `MAT_MOMENT_DATE_FORMATS` can be automatically provided by importing
+        // `MatMomentDateModule` in your applications root module. We provide it at the component level
+        // here, due to limitations of our example generation script.
+        {
+          provide: DateAdapter,
+          useClass: MomentDateAdapter,
+          deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+
+    ],
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush, 
 })
@@ -36,8 +62,8 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
         
         public matDialogRef: MatDialogRef<McReportAddDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public editData: McReport,
-
         private _changeDetectorRef: ChangeDetectorRef,
+        private datePipe: DatePipe,
     )
     {}
 
@@ -50,7 +76,6 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {   
-
 
         // Prepare the mc report form
         this.mcReportForm = this._formBuilder.group({
@@ -114,6 +139,9 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
     // -----------------------------------------------------------------------------------------------------
 
     addMcReport(){
+        // Change date format of form
+        this.mcReportForm.value.date = this.datePipe.transform(this.mcReportForm.get('date').value, 'yyyy-MM-dd')
+
         if(!this.editData){
             console.log(this.mcReportForm.value)
             if(this.mcReportForm.valid){

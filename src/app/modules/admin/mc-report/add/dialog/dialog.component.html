@@ -30,14 +30,14 @@
             <mat-label>日付</mat-label>
             <input
                 matInput
-                [matDatepicker]="birthdayDatepicker"
+                [matDatepicker]="picker"
                 [formControlName]="'date'"
                 [placeholder]="'Date'">
             <mat-datepicker-toggle
                 matSuffix
-                [for]="birthdayDatepicker">
+                [for]="picker">
             </mat-datepicker-toggle>
-            <mat-datepicker #birthdayDatepicker></mat-datepicker>
+            <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field class="fuse-mat-no-subscript w-full">

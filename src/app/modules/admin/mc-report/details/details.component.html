@@ -58,7 +58,7 @@
                                     {{detail.checked}}
                                     
                                     <button mat-button color="primary" (click)="editMcReport(report.machine, detail)">Edit</button>
-                                    <button mat-button color="warn">Delete</button>
+                                    <button mat-button color="warn" (click)="deleteMcReport(detail.id)">Delete</button>
                                 
                                 </mat-expansion-panel>
                               </div>

@@ -145,6 +145,10 @@ export class McReportDetailsComponent implements OnInit, OnDestroy
           })
     }
 
+    deleteMcReport(id: any){
+        console.log(id);
+    }
+
     /**
      * Close the drawer
      */

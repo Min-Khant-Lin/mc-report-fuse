@@ -1,7 +1,6 @@
 import { Route } from '@angular/router';
-
+import { CSVImportComponent } from './csv-import/csv-import.component';
 import { DeliverySlipComponent } from './delivery-slip.component';
-import { CreateA7SlipComponent } from './a7/a7.component';
 
 export const deliverySlipRoutes: Route[] = [
     {
@@ -13,7 +12,7 @@ export const deliverySlipRoutes: Route[] = [
         children : [
             {
                 path     : '',
-                component: CreateA7SlipComponent,
+                component: CSVImportComponent,
                 // resolve  : {
                 //     mcDailyReports: McDailyReportsResolver,
                 // },

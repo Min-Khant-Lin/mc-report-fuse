@@ -5,22 +5,36 @@ import { FormControl } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
 import { filter, fromEvent, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 
 import { CSVRecord } from '../model';
 
 @Component({
-    selector: 'a7-slip',
-    templateUrl: './a7.component.html',
+    selector: 'csv-import',
+    templateUrl: './csv-import.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class CreateA7SlipComponent implements OnInit {
+export class CSVImportComponent implements OnInit {
 
     @ViewChild('csvReader') csvReader: any;
     records: CSVRecord[] = [];
     dataSource: MatTableDataSource<any>;
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
+
+    displayedColumns: string[] = [
+        'instruction', 
+        'productCode', 
+        'orderNo',
+        'orderAmount',
+        'unitPrice',
+        'userCode',
+    ];
 
     constructor(
         private _changeDetectorRef: ChangeDetectorRef
@@ -50,7 +64,7 @@ export class CreateA7SlipComponent implements OnInit {
                     headersRow.length
                 );
                 // console.log(this.records);
-
+                this.dataSource = new MatTableDataSource(this.records);
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
             };
@@ -75,9 +89,9 @@ export class CreateA7SlipComponent implements OnInit {
                 csvRecord.productCode = currentRecord[1].trim();
                 csvRecord.productName = currentRecord[2].trim();
                 csvRecord.orderNo = currentRecord[3].trim();
-                csvRecord.quantity = currentRecord[4].trim();
+                csvRecord.orderAmount = currentRecord[4].trim();
                 csvRecord.unitPrice = currentRecord[5].trim();
-                csvRecord.userCode = currentRecord[7].trim();
+                csvRecord.userCode = currentRecord[8].trim();
                 csvRecord.unitWeight = currentRecord[17].trim();
                 csvRecord.totalWeight = currentRecord[18].trim();
                 csvArr.push(csvRecord);
@@ -103,4 +117,18 @@ export class CreateA7SlipComponent implements OnInit {
         this.csvReader.nativeElement.value = '';
         this.records = [];
     }
-}   
+    
+    ngAfterViewInit() {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+    }
+
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    
+        if (this.dataSource.paginator) {
+          this.dataSource.paginator.firstPage();
+        }
+    }
+}

@@ -1,9 +1,0 @@
-<div class="flex flex-col w-full">
-  <input type="file" 
-    #csvReader name="Upload CSV" id="txtFileUpload" 
-    (change)="uploadListener($event)" accept=".csv" />
-
-    <!-- Show csv data in table -->
-    <csv-data-list [records]="records"></csv-data-list>
-
-</div>

@@ -1,14 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-
 import { DeliverySlipComponent } from './delivery-slip.component';
-import { CreateA7SlipComponent } from './a7/a7.component';
-import { CSVDatalistComponent } from './list/list.component';
-
 import { deliverySlipRoutes } from './delivery-slip.routing';
-
 import { SharedModule } from 'app/shared/shared.module';
 import { MaterialModule } from '../material.module';
+import { CSVImportComponent } from './csv-import/csv-import.component';
 
 const exampleRoutes: Route[] = [
     {
@@ -20,8 +16,7 @@ const exampleRoutes: Route[] = [
 @NgModule({
     declarations: [
         DeliverySlipComponent,
-        CreateA7SlipComponent,
-        CSVDatalistComponent,
+        CSVImportComponent,
     ],
     imports     : [
         RouterModule.forChild(deliverySlipRoutes),

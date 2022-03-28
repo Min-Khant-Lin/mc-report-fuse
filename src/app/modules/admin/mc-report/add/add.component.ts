@@ -33,6 +33,8 @@ export class McReportAddComponent implements OnInit
     {
         // Launch the modal
         this._matDialog.open(McReportAddDialogComponent, {
+            maxWidth: '100vw',
+            maxHeight: '100vh',
             autoFocus: false,
             disableClose: true,})
             .afterClosed()

@@ -15,7 +15,8 @@
 
     <!-- Report form -->
     <form class="flex flex-col flex-0 items-start w-full p-6 sm:p-8 space-y-2"
-        [formGroup]="mcReportForm">
+        [formGroup]="mcReportForm"
+        >
         
         <mat-form-field class="fuse-mat-no-subscript w-full">
             <mat-label>名称</mat-label>
@@ -70,7 +71,6 @@
                 <input
                     matInput
                     [required]="reportType == 1 || reportType == 2"
-                    [formControl]="customers"
                     formControlName="customerCode"
                     [matAutocomplete]="auto"
                     [placeholder]="'Customer Code'">

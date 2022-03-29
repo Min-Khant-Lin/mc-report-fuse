@@ -53,8 +53,7 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
     pass = true;
     actionBtn = '登録';
 
-    customers = new FormControl();
-    customerOptions: string[] = ['One', 'Two', 'Three'];
+    customerOptions: string[] = ['住友', '日立', 'ティエラ', '末吉'];
     customerFilteredOptions: Observable<string[]>;
 
     // Private
@@ -83,11 +82,6 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {   
-        this.customerFilteredOptions = this.customers.valueChanges.pipe(
-            startWith(''),
-            map(value => this._filter(value)),
-        );
-        
         // Prepare the mc report form
         this.mcReportForm = this._formBuilder.group({
             userName:[''],
@@ -107,7 +101,10 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
             checked:[''],
         })
 
-
+        this.customerFilteredOptions = this.mcReportForm.get('customerCode').valueChanges.pipe(
+            startWith(''),
+            map(value => this._filter(value)),
+        );
 
         // Get the initital value
         var machine = localStorage.getItem("machine")
@@ -213,7 +210,7 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
     // -----------------------------------------------------------------------------------------------------
 
     private _filter(value: string): string[] {
-        console.log(value);
+        // console.log(value);
         const filterValue = value.toLowerCase();
     
         return this.customerOptions.filter(option => option.toLowerCase().includes(filterValue));

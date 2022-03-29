@@ -62,6 +62,7 @@
                                 <!-- <mat-label>日付</mat-label> -->
                                 <input
                                     matInput
+                                    disabled
                                     [formControlName]="'filterDate'"
                                     [matDatepicker]="picker"
                                     [placeholder]="'Date'">
@@ -69,7 +70,7 @@
                                     matSuffix
                                     [for]="picker">
                                 </mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-datepicker disabled="false" #picker></mat-datepicker>
                             </mat-form-field>
 
                             <!-- Name Filter -->

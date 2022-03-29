@@ -70,8 +70,15 @@
                 <input
                     matInput
                     [required]="reportType == 1 || reportType == 2"
+                    [formControl]="customers"
                     formControlName="customerCode"
+                    [matAutocomplete]="auto"
                     [placeholder]="'Customer Code'">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of customerFilteredOptions | async" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
     
             <mat-form-field class="fuse-mat-no-subscript w-full">

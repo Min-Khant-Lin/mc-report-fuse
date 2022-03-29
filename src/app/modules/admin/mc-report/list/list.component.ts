@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DatePipe, DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -21,20 +21,15 @@ export class McReportListComponent implements OnInit, OnDestroy
     @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
 
     mcDailyReports$: Observable<McDailyReport[]>;
-    mcDailyReportCount: number = 0;
-
     selectedMcDailyReport: McDailyReport;
-    // mcDailyReports: McDailyReport[];
+    mcDailyReportCount: number = 0;
 
     criteriaForm: FormGroup;
     userNameFilter:string = '';
 
-    // mcDailyReportCheck: boolean[];
-
-    showFiller = false;
-
     drawerMode: 'side' | 'over';
-    
+
+    todayDate = new Date;
 
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -42,16 +37,13 @@ export class McReportListComponent implements OnInit, OnDestroy
      * Constructor
      */
     constructor(
+        @Inject(DOCUMENT) private _document: any,
         private _formBuilder: FormBuilder,
-        private datePipe: DatePipe,
         private _activatedRoute: ActivatedRoute,
         private _changeDetectorRef: ChangeDetectorRef,
-        @Inject(DOCUMENT) private _document: any,
         private _router: Router,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
-        
         private _mcService: McReportService,
-        
         )
     {
     }
@@ -66,7 +58,7 @@ export class McReportListComponent implements OnInit, OnDestroy
     ngOnInit(): void
     {
         this.criteriaForm = this._formBuilder.group({
-            filterDate: [''],
+            filterDate: [this._mcService.transformDate(this.todayDate)],
         });
 
         // this._mcService.getMcDailyReports().subscribe();

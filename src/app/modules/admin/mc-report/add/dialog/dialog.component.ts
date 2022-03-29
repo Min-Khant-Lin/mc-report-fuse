@@ -1,12 +1,15 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { debounceTime, Subject, takeUntil, tap } from 'rxjs';
+import { DatePipe } from '@angular/common';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+
 import { McReportService } from '../../mc-report.service';
 import { McReport } from '../../model';
 
-import { DatePipe } from '@angular/common';
 
 import {
     MAT_MOMENT_DATE_FORMATS,
@@ -46,9 +49,13 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
     @ViewChild('labelInput') labelInput: ElementRef<HTMLInputElement>;
     mcReportForm: FormGroup;
     machines = machineList
-    reportType = 0;
+    reportType = 1;
     pass = true;
     actionBtn = '登録';
+
+    customers = new FormControl();
+    customerOptions: string[] = ['One', 'Two', 'Three'];
+    customerFilteredOptions: Observable<string[]>;
 
     // Private
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -76,7 +83,11 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {   
-
+        this.customerFilteredOptions = this.customers.valueChanges.pipe(
+            startWith(''),
+            map(value => this._filter(value)),
+        );
+        
         // Prepare the mc report form
         this.mcReportForm = this._formBuilder.group({
             userName:[''],
@@ -95,6 +106,8 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
             cmt:[''],
             checked:[''],
         })
+
+
 
         // Get the initital value
         var machine = localStorage.getItem("machine")
@@ -199,4 +212,10 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
     // @ Private methods
     // -----------------------------------------------------------------------------------------------------
 
+    private _filter(value: string): string[] {
+        console.log(value);
+        const filterValue = value.toLowerCase();
+    
+        return this.customerOptions.filter(option => option.toLowerCase().includes(filterValue));
+    }
 }

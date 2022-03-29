@@ -22,6 +22,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 const material = [
     MatButtonModule,
@@ -46,6 +47,7 @@ const material = [
     MatChipsModule,
     MatPaginatorModule,
     MatSortModule,
+    MatAutocompleteModule,
 ];
 
 @NgModule({

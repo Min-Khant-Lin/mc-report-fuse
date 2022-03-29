@@ -7,6 +7,7 @@ import { McReportService } from '../../mc-report.service';
 import { McReport } from '../../model';
 
 import { DatePipe } from '@angular/common';
+
 import {
     MAT_MOMENT_DATE_FORMATS,
     MomentDateAdapter,
@@ -23,7 +24,6 @@ const machineList = ['MC', 'MILLAC', 'ラジアル']
     styleUrls      :['./dialog.component.scss'],
     templateUrl    : './dialog.component.html',
     providers      :[
-        DatePipe,
 
         {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
 

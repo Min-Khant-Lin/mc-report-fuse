@@ -14,6 +14,7 @@ import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
 
 import { MaterialModule } from './modules/admin/material.module';
+import { DatePipe } from '@angular/common';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -48,6 +49,9 @@ const routerConfig: ExtraOptions = {
     ],
     bootstrap   : [
         AppComponent
+    ],
+    providers: [
+        DatePipe,
     ]
 })
 export class AppModule

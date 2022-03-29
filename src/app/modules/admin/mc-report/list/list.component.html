@@ -21,10 +21,10 @@
             <div class="flex-auto">
 
                 <!-- Header -->
-                <div class="flex flex-col sm:flex-row md:flex-col flex-auto justify-between py-8 px-6 md:px-8 border-b">
+                <div class="flex flex-col justify-between py-8 px-6 md:px-8 border-b">
 
                     <!-- Title -->
-                    <div>
+                    <div class="flex flex-row justify-between">
                         <div class="text-4xl font-extrabold tracking-tight leading-none">Contacts</div>
                         <div class="ml-0.5 font-medium text-secondary">
                             <!-- <ng-container *ngIf="contactsCount > 0">
@@ -35,24 +35,6 @@
                             '=1'   : 'contact',
                             'other': 'contacts'
                         } }} -->
-                        </div>
-                    </div>
-
-                    <!-- Main actions -->
-                    <div class="flex items-center mt-4 sm:mt-0 md:mt-4">
-                        <!-- Search -->
-                        <div class="flex-auto">
-                            <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded w-full min-w-50">
-                                <mat-icon
-                                    class="icon-size-5"
-                                    matPrefix
-                                    [svgIcon]="'heroicons_solid:search'"></mat-icon>
-                                <input
-                                    matInput
-                                    [formControl]="searchInputControl"
-                                    [autocomplete]="'off'"
-                                    [placeholder]="'Search contacts'">
-                            </mat-form-field>
                         </div>
                         <!-- Add contact button -->
                         <button
@@ -65,13 +47,61 @@
                             <span class="ml-2 mr-1">Add</span>
                         </button>
                     </div>
+
+                    <!-- Main actions -->
+                    <div class="flex items-center mt-4 sm:mt-0 md:mt-4">
+                        
+                        <!-- Search -->
+                        <div class="flex-auto">
+                            <!-- Date Filter -->
+                            <mat-form-field 
+                                [formGroup]="criteriaForm"
+                                class="fuse-mat-dense fuse-mat-no-subscript min-w-50 mx-3"
+                                appearance="legacy"
+                                >
+                                <!-- <mat-label>日付</mat-label> -->
+                                <input
+                                    matInput
+                                    [formControlName]="'filterDate'"
+                                    [matDatepicker]="picker"
+                                    [placeholder]="'Date'">
+                                <mat-datepicker-toggle
+                                    matSuffix
+                                    [for]="picker">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+
+                            <!-- Name Filter -->
+                            <mat-form-field 
+                                class="fuse-mat-dense fuse-mat-no-subscript min-w-50 mx-3"
+                                appearance="legacy"
+                                >
+                                <mat-label>名称</mat-label>
+                                <!-- <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:search'"></mat-icon> -->
+                                <input
+                                    matInput
+                                    [(ngModel)]="userNameFilter"
+                                    [autocomplete]="'off'"
+                                    [placeholder]="'Search contacts'">
+                            </mat-form-field>
+    
+                        </div>
+                        
+                    </div>
                 </div>
 
                 <!-- Contacts list -->
                 <div class="relative">
                     <ng-container *ngIf="mcDailyReports$ | async as mcDailyReports">
                         <ng-container *ngIf="mcDailyReports.length; else noMcDailyReports">
-                            <ng-container *ngFor="let mcDailyReport of mcDailyReports; let i = index; trackBy: trackByFn">
+                            <ng-container 
+                                *ngFor="let mcDailyReport of mcDailyReports | filter:userNameFilter:'userName'; 
+                                let i = index; 
+                                trackBy: trackByFn">
                                 <!-- Group -->
                                 <!-- <ng-container *ngIf="i === 0 || mcDailyReport.name.charAt(0) !== mcDailyReports[i - 1].name.charAt(0)">
                                     <div class="z-10 sticky top-0 -mt-px px-6 py-1 md:px-8 border-t border-b font-medium uppercase text-secondary bg-gray-50 dark:bg-gray-900">

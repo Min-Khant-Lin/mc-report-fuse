@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
-
 import { McReportService } from './mc-report.service';
 import { McDailyReport, McReport } from './model';
 
@@ -10,13 +9,15 @@ import { McDailyReport, McReport } from './model';
 })
 export class McDailyReportsResolver implements Resolve<any>
 {
+    date = new Date;
     /**
      * Constructor
      */
-    constructor(private _mcService: McReportService)
+    constructor(
+        private _mcService: McReportService,
+        )
     {
     }
-
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
@@ -29,7 +30,8 @@ export class McDailyReportsResolver implements Resolve<any>
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<McDailyReport[]>
     {
-        return this._mcService.getMcDailyReports();
+        let todayDate = this._mcService.transformDate(this.date);
+        return this._mcService.getMcDailyReportsByDate(todayDate);
     }
 }
 

@@ -2,18 +2,27 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { McReport, McDailyReport } from './model';
 import { BehaviorSubject, Observable, tap, take } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 const baseUrl = 'http://localhost:3000';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class McReportService {
   private _mcDailyReports = new BehaviorSubject<McDailyReport[] | null>([]);
   private _mcDailyReport = new BehaviorSubject<McDailyReport | null>(null);
   private _mcReport = new BehaviorSubject<McReport | null>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private datePipe: DatePipe,
+    ) {}
+
+  transformDate(date: any){
+    return this.datePipe.transform(date,'yyyy-MM-dd');
+  }
 
   // Getter for daily reports
   get mcDailyReports$(): Observable<McDailyReport[]>{
@@ -40,6 +49,21 @@ export class McReportService {
             this._mcDailyReports.next(res);
           })
         )   
+  }
+
+  // Get mc daily reports by date
+  getMcDailyReportsByDate(date: any): Observable<McDailyReport[]>{
+    console.log(date);
+
+    return this.http.get<McDailyReport[]>(
+      `${baseUrl}/mcDailyReports?date=${date}`
+    )
+    .pipe(
+      tap((res)=>{
+        console.log(res);
+        this._mcDailyReports.next(res);
+      })
+    )
   }
 
   // Get mc daily report by userId

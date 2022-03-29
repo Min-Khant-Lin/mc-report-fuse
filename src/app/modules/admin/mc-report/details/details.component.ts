@@ -134,7 +134,10 @@ export class McReportDetailsComponent implements OnInit, OnDestroy
         console.log(detail)
         
         this.dialog.open(McReportAddDialogComponent, {
+            maxWidth: '100vw',
+            maxHeight: '100vh',
             autoFocus: false,
+            disableClose: true,
             data: detail,
           }).afterClosed().subscribe(value => {
             if(value==='update'){

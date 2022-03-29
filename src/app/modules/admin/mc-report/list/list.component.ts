@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { DatePipe, DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
 import { filter, fromEvent, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
@@ -13,26 +13,28 @@ import { McDailyReport } from '../model';
     selector       : 'mc-report-list',
     templateUrl    : './list.component.html',
     encapsulation  : ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 export class McReportListComponent implements OnInit, OnDestroy
 {
     @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
 
     mcDailyReports$: Observable<McDailyReport[]>;
+    mcDailyReportCount: number = 0;
+
+    selectedMcDailyReport: McDailyReport;
     // mcDailyReports: McDailyReport[];
 
-    mcDailyReportCount: number = 0;
+    criteriaForm: FormGroup;
+    userNameFilter:string = '';
+
     // mcDailyReportCheck: boolean[];
 
-    // contactsTableColumns: string[] = ['name', 'email', 'phoneNumber', 'job'];
-    // countries: Country[];
-    
+    showFiller = false;
+
     drawerMode: 'side' | 'over';
     
-    searchInputControl: FormControl = new FormControl();
-    
-    selectedMcDailyReport: McDailyReport;
 
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -40,6 +42,8 @@ export class McReportListComponent implements OnInit, OnDestroy
      * Constructor
      */
     constructor(
+        private _formBuilder: FormBuilder,
+        private datePipe: DatePipe,
         private _activatedRoute: ActivatedRoute,
         private _changeDetectorRef: ChangeDetectorRef,
         @Inject(DOCUMENT) private _document: any,
@@ -61,39 +65,54 @@ export class McReportListComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+        this.criteriaForm = this._formBuilder.group({
+            filterDate: [''],
+        });
+
         // this._mcService.getMcDailyReports().subscribe();
         this.mcDailyReports$ = this._mcService.mcDailyReports$;
         console.log(this.mcDailyReports$)
-    //     this._mcService.mcDailyReports$
-    //     .pipe(takeUntil(this._unsubscribeAll))
-    //     .subscribe((mcDailyReports: McDailyReport[]) => {
+
+        // this._mcService.mcDailyReports$
+        // .pipe(takeUntil(this._unsubscribeAll))
+        // .subscribe((mcDailyReports: McDailyReport[]) => {
         
-    //         // Get the contact
-    //         this.mcDailyReports = mcDailyReports;
-    //         var a :number = 0;
-    //         for(var i of this.mcDailyReports){
-    //             // console.log(report)
-    //             for(var report of i['reports']){
-    //                 // console.log(report);
-    //                 var index: number = 1;
-    //                 for(var detail of report['detail']){
-    //                     if(index==1){
-    //                         this.mcDailyReportCheck[a] = detail['checked']
-    //                         index++;
-    //                     }
-    //                     console.log(detail)
-    //                     this.mcDailyReportCheck[a] = this.mcDailyReportCheck[a] && detail['checked']
-    //                 }
-    //                 console.log(this.mcDailyReportCheck)
-    //             }
-    //             a++;
-    //         }
-    //         // console.log(this.mcDailyReports)
+        //     // Get the contact
+        //     this.mcDailyReports = mcDailyReports;
+        //     var a :number = 0;
+        //     for(var i of this.mcDailyReports){
+        //         // console.log(report)
+        //         for(var report of i['reports']){
+        //             // console.log(report);
+        //             var index: number = 1;
+        //             for(var detail of report['detail']){
+        //                 if(index==1){
+        //                     this.mcDailyReportCheck[a] = detail['checked']
+        //                     index++;
+        //                 }
+        //                 console.log(detail)
+        //                 this.mcDailyReportCheck[a] = this.mcDailyReportCheck[a] && detail['checked']
+        //             }
+        //             console.log(this.mcDailyReportCheck)
+        //         }
+        //         a++;
+        //     }
+        //     // console.log(this.mcDailyReports)
         
-    // });
+        // });
         
+        // Filter by Date
+        this.criteriaForm
+            .get('filterDate')
+            .valueChanges.subscribe((filterDate)=>{
+                // Change date format of form
+                filterDate = this._mcService.transformDate(filterDate);
+                this._mcService.getMcDailyReportsByDate(filterDate)
+                .subscribe();
+            })
+                
+                
         // Subscribe to MatDrawer opened change
-        
         this.matDrawer.openedChange.subscribe((opened) => {
             if ( !opened )
             {

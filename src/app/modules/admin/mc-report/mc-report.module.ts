@@ -11,6 +11,7 @@ import { McReportDetailsComponent } from './details/details.component';
 import { McReportAddComponent } from './add/add.component';
 import { McReportAddDialogComponent } from './add/dialog/dialog.component';
 import { MaterialModule } from '../material.module';
+import { SearchFilterPipe } from './list/search-filter.pipe';
 
 @NgModule({
     declarations: [
@@ -19,12 +20,13 @@ import { MaterialModule } from '../material.module';
         McReportDetailsComponent,
         McReportAddComponent,
         McReportAddDialogComponent,
+        SearchFilterPipe,
     ],
     imports     : [
         RouterModule.forChild(McReportRoutes),
         MaterialModule,
         FuseFindByKeyPipeModule,
-        SharedModule
+        SharedModule,
     ],
     providers   : [
         {

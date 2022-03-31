@@ -4,7 +4,7 @@ export interface McReport {
     userName: string;
     date: Date;
     machine: string;
-    reportType:string;
+    reportType:number;
     customerCode:string;
     material:string;
     productCode:string;

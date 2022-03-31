@@ -6,22 +6,13 @@ import { debounceTime, Subject, takeUntil, tap } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-
 import { McReportService } from '../../mc-report.service';
 import { McReport } from '../../model';
+import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import 'moment/locale/ja';
+import 'moment/locale/fr';
 
-
-import {
-    MAT_MOMENT_DATE_FORMATS,
-    MomentDateAdapter,
-    MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-  } from '@angular/material-moment-adapter';
-  import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-  import 'moment/locale/ja';
-  import 'moment/locale/fr';
-
-const now = new Date();
-const machineList = ['MC', 'MILLAC', 'ラジアル']
 @Component({
     selector       : 'mc-report-add-details',
     styleUrls      :['./dialog.component.scss'],
@@ -48,7 +39,8 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
 {
     @ViewChild('labelInput') labelInput: ElementRef<HTMLInputElement>;
     mcReportForm: FormGroup;
-    machines = machineList
+    todayDate = new Date();
+    machines = ['MC', 'MILLAC', 'ラジアル']
     reportType = 1;
     pass = true;
     actionBtn = '登録';
@@ -65,11 +57,9 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
     constructor(
         private _formBuilder: FormBuilder,
         private _mcService: McReportService,
-        
         public matDialogRef: MatDialogRef<McReportAddDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public editData: McReport,
         private _changeDetectorRef: ChangeDetectorRef,
-        private datePipe: DatePipe,
     )
     {}
 
@@ -82,12 +72,16 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {   
+        // Get value from local storage
+        var machineFromLocal = localStorage.getItem('machine');
+        var reprotTypeFromLocal = localStorage.getItem('reportType');
+
         // Prepare the mc report form
         this.mcReportForm = this._formBuilder.group({
             userName:[''],
-            date:[now],
-            machine:[''],
-            reportType:[''],
+            date:[this.todayDate],
+            machine:[machineFromLocal],
+            reportType:[reprotTypeFromLocal],
             customerCode:[''],
             material:[''],
             productCode:[''],
@@ -101,16 +95,11 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
             checked:[''],
         })
 
+        // Autocomplete userCode
         this.customerFilteredOptions = this.mcReportForm.get('customerCode').valueChanges.pipe(
             startWith(''),
             map(value => this._filter(value)),
         );
-
-        // Get the initital value
-        var machine = localStorage.getItem("machine")
-        if(machine){
-            this.mcReportForm.controls['machine'].setValue(machine);
-        }
 
         // Get the edit data
         if (this.editData) {
@@ -119,6 +108,8 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
             this.mcReportForm.controls['date'].setValue(this.editData.date);
             this.mcReportForm.controls['machine'].setValue(this.editData.machine);
             this.mcReportForm.controls['reportType'].setValue(this.editData.reportType);
+            // Set the reportType
+            this.reportType = this.editData.reportType;
             this.mcReportForm.controls['customerCode'].setValue(this.editData.customerCode);
             this.mcReportForm.controls['material'].setValue(this.editData.material);
             this.mcReportForm.controls['productCode'].setValue(this.editData.productCode);
@@ -150,7 +141,26 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
 
     addMcReport(){
         // Change date format of form
-        this.mcReportForm.value.date = this.datePipe.transform(this.mcReportForm.get('date').value, 'yyyy-MM-dd')
+        this.mcReportForm.value.date = this._mcService.transformDate(this.mcReportForm.get('date').value)
+        
+        // Check report Type
+        if(this.mcReportForm.value.reportType == 2){
+            this.mcReportForm.value.mt = '';
+        }
+        else if(this.mcReportForm.value.reportType == 3){
+            this.mcReportForm.value.customerCode = '';
+            this.mcReportForm.value.material = '';
+            this.mcReportForm.value.productCode = '';
+            this.mcReportForm.value.amount = '';
+            this.mcReportForm.value.passFail = '';
+            this.mcReportForm.value.failAmount = '';
+            this.mcReportForm.value.failReason = '';
+            this.mcReportForm.value.mt = '';
+        }
+
+        // Save at local storage
+        localStorage.setItem('machine', this.mcReportForm.get('machine').value)
+        localStorage.setItem('reportType', this.mcReportForm.get('reportType').value)
 
         if(!this.editData){
             console.log(this.mcReportForm.value)
@@ -191,16 +201,6 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
         this.reportType = event.value;
     }
 
-    saveAtLocalStorage(event:any){
-        localStorage.setItem("machine", event.value);
-    }
-    // toggleProduction(){
-    //     this.production = !this.production;
-    //     // if(this.production==false){
-    //     //   this.pass = true
-    //     // }
-    // }
-
     togglePass() {
         this.pass = !this.pass;
     }
@@ -211,8 +211,9 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
 
     private _filter(value: string): string[] {
         // console.log(value);
-        const filterValue = value.toLowerCase();
-    
-        return this.customerOptions.filter(option => option.toLowerCase().includes(filterValue));
+        if(value != null){
+            const filterValue = value.toLowerCase();
+            return this.customerOptions.filter(option => option.toLowerCase().includes(filterValue));
+        }
     }
 }

@@ -24,7 +24,7 @@ export class McReportListComponent implements OnInit, OnDestroy
     selectedMcDailyReport: McDailyReport;
     mcDailyReportCount: number = 0;
 
-    criteriaForm: FormGroup;
+    dateForm: FormGroup;
     userNameFilter:string = '';
 
     drawerMode: 'side' | 'over';
@@ -57,7 +57,7 @@ export class McReportListComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        this.criteriaForm = this._formBuilder.group({
+        this.dateForm = this._formBuilder.group({
             filterDate: [this._mcService.transformDate(this.todayDate)],
         });
 
@@ -94,7 +94,7 @@ export class McReportListComponent implements OnInit, OnDestroy
         // });
         
         // Filter by Date
-        this.criteriaForm
+        this.dateForm
             .get('filterDate')
             .valueChanges.subscribe((filterDate)=>{
                 // Change date format of form

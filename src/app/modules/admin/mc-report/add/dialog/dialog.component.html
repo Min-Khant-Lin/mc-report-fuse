@@ -42,7 +42,7 @@
 
         <mat-form-field class="fuse-mat-no-subscript w-full">
             <mat-label>設備</mat-label>
-            <mat-select formControlName="machine" disableRipple (selectionChange)="saveAtLocalStorage($event)">
+            <mat-select formControlName="machine" disableRipple>
               <mat-option *ngFor="let machine of machines" [value]="machine">{{machine}}</mat-option>
             </mat-select>
         </mat-form-field>

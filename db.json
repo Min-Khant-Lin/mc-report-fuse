@@ -1,272 +1,272 @@
 {
-    "mcReports": [
-        {
-            "userName": "ミンカンリン",
-            "date": "2022-03-04",
-            "machine": "MC",
-            "reportType": "1",
-            "customerCode": "HBS",
-            "material": "SS",
-            "productCode": "P001-10",
-            "amount": "100",
-            "passFail": false,
-            "failAmount": "",
-            "failReason": "",
-            "mt": "180",
-            "st": "360",
-            "cmt": "",
-            "checked": true,
-            "id": 1
-        },
-        {
-            "employeeName": "桜井",
-            "date": "2022-03-10",
-            "machine": "MC",
-            "reportType": "1",
-            "customerCode": "住友",
-            "material": "SS",
-            "productCode": "P0001-5",
-            "amount": "10",
-            "passFail": false,
-            "failAmount": "",
-            "failReason": "",
-            "mt": "90",
-            "st": "360",
-            "cmt": "",
-            "checked": "",
-            "id": 2
-        }
-    ],
-    "mcDailyReports": [
-        {
-            "userId": 1,
-            "userName": "ミンカンリン",
-            "date": "2022-03-04",
-            "totalSt": "640",
-            "reports": [
-                {
-                    "machine": "MC",
-                    "machineSt": "120",
-                    "detail": [
-                        {
-                            "reportType": "1",
-                            "customerCode": "HBS",
-                            "material": "SS",
-                            "productCode": "P001-10",
-                            "amount": "100",
-                            "passFail": false,
-                            "failAmount": "",
-                            "failReason": "",
-                            "mt": "180",
-                            "st": "360",
-                            "cmt": "",
-                            "checked": true,
-                            "id": 1
-                        },
-                        {
-                            "reportType": "1",
-                            "customerCode": "日立",
-                            "material": "HT560",
-                            "productCode": "P001-5",
-                            "amount": "30",
-                            "passFail": true,
-                            "failAmount": "1",
-                            "failReason": "原点の位置",
-                            "mt": "60",
-                            "st": "180",
-                            "cmt": "",
-                            "checked": true,
-                            "id": 2
-                        },
-                        {
-                            "reportType": "2",
-                            "customerCode": "日立",
-                            "material": "HT560",
-                            "productCode": "P001-5",
-                            "amount": "30",
-                            "passFail": false,
-                            "failAmount": "",
-                            "failReason": "",
-                            "mt": "",
-                            "st": "80",
-                            "cmt": "仕上げ",
-                            "checked": true,
-                            "id": 3
-                        }
-                    ]
-                },
-                {
-                    "machine": "MILLAC",
-                    "machineSt": "50",
-                    "detail": [
-                        {
-                            "reportType": "1",
-                            "customerCode": "トノハ",
-                            "material": "SS",
-                            "productCode": "P008-2",
-                            "amount": "50",
-                            "passFail": false,
-                            "failAmount": "",
-                            "failReason": "",
-                            "mt": "60",
-                            "st": "180",
-                            "cmt": "",
-                            "checked": true,
-                            "id": 4
-                        },
-                        {
-                            "reportType": "3",
-                            "customerCode": "",
-                            "material": "",
-                            "productCode": "",
-                            "amount": "",
-                            "passFail": false,
-                            "failAmount": "",
-                            "failReason": "",
-                            "mt": "",
-                            "st": "180",
-                            "cmt": "C面取り",
-                            "checked": true,
-                            "id": 5
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "userId": 2,
-            "userName": "櫻井",
-            "date": "2022-03-04",
-            "totalSt": "640",
-            "reports": [
-                {
-                    "machine": "MILLAC",
-                    "machineSt": "640",
-                    "detail": [
-                        {
-                            "reportType": "1",
-                            "customerCode": "HBS",
-                            "material": "SS",
-                            "productCode": "P001-5",
-                            "amount": "100",
-                            "passFail": false,
-                            "failAmount": "",
-                            "failReason": "",
-                            "mt": "60",
-                            "st": "180",
-                            "cmt": "",
-                            "checked": true,
-                            "id": 20
-                        },
-                        {
-                            "reportType": "1",
-                            "customerCode": "HBS",
-                            "material": "SS",
-                            "productCode": "P001-10",
-                            "amount": "10",
-                            "passFail": false,
-                            "failAmount": "",
-                            "failReason": "",
-                            "mt": "120",
-                            "st": "360",
-                            "cmt": "",
-                            "checked": true,
-                            "id": 21
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "userId": 3,
-            "userName": "小島",
-            "date": "2022-03-29",
-            "totalSt": "480",
-            "reports": [
-                {
-                    "machine": "MC",
-                    "machineSt": "480",
-                    "detail": [
-                        {
-                            "reportType": "1",
-                            "customerCode": "HBS",
-                            "material": "SS",
-                            "productCode": "P001-5",
-                            "amount": "100",
-                            "passFail": false,
-                            "failAmount": "",
-                            "failReason": "",
-                            "mt": "80",
-                            "st": "120",
-                            "cmt": "",
-                            "checked": true,
-                            "id": 30
-                        },
-                        {
-                            "reportType": "1",
-                            "customerCode": "HBS",
-                            "material": "SS",
-                            "productCode": "P001-10",
-                            "amount": "10",
-                            "passFail": false,
-                            "failAmount": "",
-                            "failReason": "",
-                            "mt": "120",
-                            "st": "360",
-                            "cmt": "",
-                            "checked": true,
-                            "id": 31
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "userId": 4,
-            "userName": "ティハソー",
-            "date": "2022-03-29",
-            "totalSt": "480",
-            "reports": [
-                {
-                    "machine": "MILLAC",
-                    "machineSt": "480",
-                    "detail": [
-                        {
-                            "reportType": "1",
-                            "customerCode": "HBS",
-                            "material": "SS",
-                            "productCode": "P001-5",
-                            "amount": "100",
-                            "passFail": false,
-                            "failAmount": "",
-                            "failReason": "",
-                            "mt": "80",
-                            "st": "120",
-                            "cmt": "",
-                            "checked": true,
-                            "id": 30
-                        },
-                        {
-                            "reportType": "1",
-                            "customerCode": "HBS",
-                            "material": "SS",
-                            "productCode": "P001-10",
-                            "amount": "10",
-                            "passFail": false,
-                            "failAmount": "",
-                            "failReason": "",
-                            "mt": "120",
-                            "st": "360",
-                            "cmt": "",
-                            "checked": true,
-                            "id": 31
-                        }
-                    ]
-                }
-            ]
-        }
-    ],
-    "profile": {
-        "name": "typicode"
+  "mcReports": [
+    {
+      "userName": "ミンカンリン",
+      "date": "2022-03-04",
+      "machine": "MC",
+      "reportType": "1",
+      "customerCode": "HBS",
+      "material": "SS",
+      "productCode": "P001-10",
+      "amount": "100",
+      "passFail": false,
+      "failAmount": "",
+      "failReason": "",
+      "mt": "180",
+      "st": "360",
+      "cmt": "",
+      "checked": true,
+      "id": 1
+    },
+    {
+      "employeeName": "桜井",
+      "date": "2022-03-10",
+      "machine": "MC",
+      "reportType": "1",
+      "customerCode": "住友",
+      "material": "SS",
+      "productCode": "P0001-5",
+      "amount": "10",
+      "passFail": false,
+      "failAmount": "",
+      "failReason": "",
+      "mt": "90",
+      "st": "360",
+      "cmt": "",
+      "checked": "",
+      "id": 2
     }
+  ],
+  "mcDailyReports": [
+    {
+      "userId": 1,
+      "userName": "ミンカンリン",
+      "date": "2022-03-04",
+      "totalSt": "640",
+      "reports": [
+        {
+          "machine": "MC",
+          "machineSt": "120",
+          "detail": [
+            {
+              "reportType": "1",
+              "customerCode": "HBS",
+              "material": "SS",
+              "productCode": "P001-10",
+              "amount": "100",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "180",
+              "st": "360",
+              "cmt": "",
+              "checked": true,
+              "id": 1
+            },
+            {
+              "reportType": "1",
+              "customerCode": "日立",
+              "material": "HT560",
+              "productCode": "P001-5",
+              "amount": "30",
+              "passFail": true,
+              "failAmount": "1",
+              "failReason": "原点の位置",
+              "mt": "60",
+              "st": "180",
+              "cmt": "",
+              "checked": true,
+              "id": 2
+            },
+            {
+              "reportType": "2",
+              "customerCode": "日立",
+              "material": "HT560",
+              "productCode": "P001-5",
+              "amount": "30",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "",
+              "st": "80",
+              "cmt": "仕上げ",
+              "checked": true,
+              "id": 3
+            }
+          ]
+        },
+        {
+          "machine": "MILLAC",
+          "machineSt": "50",
+          "detail": [
+            {
+              "reportType": "1",
+              "customerCode": "トノハ",
+              "material": "SS",
+              "productCode": "P008-2",
+              "amount": "50",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "60",
+              "st": "180",
+              "cmt": "",
+              "checked": true,
+              "id": 4
+            },
+            {
+              "reportType": "3",
+              "customerCode": "",
+              "material": "",
+              "productCode": "",
+              "amount": "",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "",
+              "st": "180",
+              "cmt": "C面取り",
+              "checked": true,
+              "id": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "userId": 2,
+      "userName": "櫻井",
+      "date": "2022-03-04",
+      "totalSt": "640",
+      "reports": [
+        {
+          "machine": "MILLAC",
+          "machineSt": "640",
+          "detail": [
+            {
+              "reportType": "1",
+              "customerCode": "HBS",
+              "material": "SS",
+              "productCode": "P001-5",
+              "amount": "100",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "60",
+              "st": "180",
+              "cmt": "",
+              "checked": true,
+              "id": 20
+            },
+            {
+              "reportType": "1",
+              "customerCode": "HBS",
+              "material": "SS",
+              "productCode": "P001-10",
+              "amount": "10",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "120",
+              "st": "360",
+              "cmt": "",
+              "checked": true,
+              "id": 21
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "userId": 3,
+      "userName": "小島",
+      "date": "2022-03-29",
+      "totalSt": "480",
+      "reports": [
+        {
+          "machine": "MC",
+          "machineSt": "480",
+          "detail": [
+            {
+              "reportType": "1",
+              "customerCode": "HBS",
+              "material": "SS",
+              "productCode": "P001-5",
+              "amount": "100",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "80",
+              "st": "120",
+              "cmt": "",
+              "checked": true,
+              "id": 30
+            },
+            {
+              "reportType": "1",
+              "customerCode": "HBS",
+              "material": "SS",
+              "productCode": "P001-10",
+              "amount": "10",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "120",
+              "st": "360",
+              "cmt": "",
+              "checked": true,
+              "id": 31
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "userId": 4,
+      "userName": "ティハソー",
+      "date": "2022-03-29",
+      "totalSt": "480",
+      "reports": [
+        {
+          "machine": "MILLAC",
+          "machineSt": "480",
+          "detail": [
+            {
+              "reportType": "1",
+              "customerCode": "HBS",
+              "material": "SS",
+              "productCode": "P001-5",
+              "amount": "100",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "80",
+              "st": "120",
+              "cmt": "",
+              "checked": true,
+              "id": 30
+            },
+            {
+              "reportType": "1",
+              "customerCode": "HBS",
+              "material": "SS",
+              "productCode": "P001-10",
+              "amount": "10",
+              "passFail": false,
+              "failAmount": "",
+              "failReason": "",
+              "mt": "120",
+              "st": "360",
+              "cmt": "",
+              "checked": true,
+              "id": 31
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
 }

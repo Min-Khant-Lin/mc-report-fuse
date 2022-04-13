@@ -35,14 +35,16 @@ import 'moment/locale/fr';
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush, 
 })
-export class McReportAddDialogComponent implements OnInit, OnDestroy
-{
+
+export class McReportAddDialogComponent implements OnInit, OnDestroy {
+
     @ViewChild('labelInput') labelInput: ElementRef<HTMLInputElement>;
     mcReportForm: FormGroup;
     todayDate = new Date();
     machines = ['MC', 'MILLAC', 'ラジアル']
-    reportType = 1;
-    pass = true;
+    reportType: number = 1;
+    pass: boolean = true;
+    checked: boolean;
     actionBtn = '登録';
 
     customerOptions: string[] = ['住友', '日立', 'ティエラ', '末吉'];
@@ -92,7 +94,7 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
             mt:[''],
             st:[''],
             cmt:[''],
-            checked:[''],
+            checked:[true],
         })
 
         // Autocomplete userCode
@@ -110,6 +112,7 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
             this.mcReportForm.controls['reportType'].setValue(this.editData.reportType);
             // Set the reportType
             this.reportType = this.editData.reportType;
+            
             this.mcReportForm.controls['customerCode'].setValue(this.editData.customerCode);
             this.mcReportForm.controls['material'].setValue(this.editData.material);
             this.mcReportForm.controls['productCode'].setValue(this.editData.productCode);
@@ -203,6 +206,11 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy
 
     togglePass() {
         this.pass = !this.pass;
+    }
+
+    toggleChecked() {
+        this.checked = !this.checked;
+        this.mcReportForm.controls['checked'].setValue(this.checked);
     }
     
     // -----------------------------------------------------------------------------------------------------

@@ -54,12 +54,12 @@
                 class="example-margin">reportType == 1 Report.</mat-checkbox>
         </section> -->
 
-        <mat-radio-group 
+        <mat-radio-group class="self-center"
             formControlName="reportType"
             (change)="changeReportType($event)"
             aria-label="Select an option">
             <mat-radio-button value="1">生産</mat-radio-button>
-            <mat-radio-button value="2">補助</mat-radio-button>
+            <mat-radio-button class="px-5" value="2">補助</mat-radio-button>
             <mat-radio-button value="3">非生産</mat-radio-button>
         </mat-radio-group>
 
@@ -170,15 +170,31 @@
             </textarea>
         </mat-form-field>
 
-        <section class="fuse-mat-no-subscript w-full">
-            <mat-checkbox 
-                formControlName="checked"
-                class="example-margin">確認</mat-checkbox>
+        <section class="fuse-mat-no-subscript w-full"
+            *ngIf="this.editData"
+        >
+            <button
+                *ngIf="mcReportForm.value.checked"
+                (click)="toggleChecked()"
+                mat-flat-button     
+                [color]="'accent'" 
+            >
+                <span> 確認済 </span>
+            </button>
+
+            <button 
+                *ngIf="!mcReportForm.value.checked"
+                (click)="toggleChecked()"
+                mat-flat-button 
+                [color]="'warn'" 
+            >
+                <span> 確認 </span>
+            </button>
         </section>
 
-        <div mat-dialog-actions>
+        <div mat-dialog-actions class="self-end">
             <button
-            class="ml-4"
+                class="ml-4"
                 mat-flat-button
                 [color]="'primary'"
                 (click)="addMcReport()"

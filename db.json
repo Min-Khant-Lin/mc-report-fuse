@@ -2,7 +2,7 @@
   "mcReports": [
     {
       "userName": "ミンカンリン",
-      "date": "2022-03-04",
+      "date": "2022-04-04",
       "machine": "MC",
       "reportType": "1",
       "customerCode": "HBS",
@@ -19,21 +19,21 @@
       "id": 1
     },
     {
-      "employeeName": "桜井",
-      "date": "2022-03-10",
+      "userName": "ミンカンリン",
+      "date": "2022-04-04",
       "machine": "MC",
       "reportType": "1",
-      "customerCode": "住友",
-      "material": "SS",
-      "productCode": "P0001-5",
-      "amount": "10",
-      "passFail": false,
-      "failAmount": "",
-      "failReason": "",
-      "mt": "90",
-      "st": "360",
+      "customerCode": "日立",
+      "material": "HT560",
+      "productCode": "P001-5",
+      "amount": "30",
+      "passFail": true,
+      "failAmount": "1",
+      "failReason": "原点の位置",
+      "mt": "60",
+      "st": "180",
       "cmt": "",
-      "checked": "",
+      "checked": false,
       "id": 2
     }
   ],
@@ -41,7 +41,7 @@
     {
       "userId": 1,
       "userName": "ミンカンリン",
-      "date": "2022-03-04",
+      "date": "2022-04-04",
       "totalSt": "640",
       "reports": [
         {
@@ -60,7 +60,7 @@
               "mt": "180",
               "st": "360",
               "cmt": "",
-              "checked": true,
+              "checked": false,
               "id": 1
             },
             {
@@ -75,7 +75,7 @@
               "mt": "60",
               "st": "180",
               "cmt": "",
-              "checked": true,
+              "checked": false,
               "id": 2
             },
             {
@@ -90,7 +90,7 @@
               "mt": "",
               "st": "80",
               "cmt": "仕上げ",
-              "checked": true,
+              "checked": false,
               "id": 3
             }
           ]
@@ -136,7 +136,7 @@
     {
       "userId": 2,
       "userName": "櫻井",
-      "date": "2022-03-04",
+      "date": "2022-04-04",
       "totalSt": "640",
       "reports": [
         {
@@ -180,7 +180,7 @@
     {
       "userId": 3,
       "userName": "小島",
-      "date": "2022-03-29",
+      "date": "2022-04-29",
       "totalSt": "480",
       "reports": [
         {
@@ -224,7 +224,7 @@
     {
       "userId": 4,
       "userName": "ティハソー",
-      "date": "2022-03-29",
+      "date": "2022-04-29",
       "totalSt": "480",
       "reports": [
         {

@@ -20,8 +20,11 @@
                     [svgIcon]="'heroicons_outline:x'"></mat-icon>
                 </button>
             </div>
-            
-            <div class="mt-3 text-xl">{{mcDailyReport.date | date:'shortDate'}}</div>        
+            <div class="flex justify-between">
+                <div class="mt-3 text-xl">{{mcDailyReport.date | date:'shortDate'}}</div>    
+                <div class="mt-3 text-xl">{{mcDailyReport.totalSt}}分</div>
+            </div>
+
         </div>
         
         <!-- Report Detail -->
@@ -31,48 +34,51 @@
                 <mat-tab-group>
                     <mat-tab *ngFor="let report of mcDailyReport.reports; index as i" label="{{report.machine}}">
                         
-                        <div class="example-action-buttons">
+                        <div class="example-action-buttons my-3">
                             <button mat-button (click)="openAll(i)">Expand All</button>
                             <button mat-button (click)="closeAll(i)">Collapse All</button>
                         </div>
 
-                          <mat-accordion class="example-headers-align" multi [@.disabled]="true">
-                              <div *ngFor="let detail of report.detail" >
-                                <mat-expansion-panel expanded="false">
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>
-                                            {{detail.productCode}}
-                                        </mat-panel-title>
-                                        <mat-panel-description>
-                                            {{detail.amount}}
-                                            {{detail.st}}分
-                                        </mat-panel-description>
-                                    </mat-expansion-panel-header>
-                                    {{detail.customerCode}}
-                                    {{detail.material}}
-                                    {{detail.failAmount}}
-                                    {{detail.failReason}}
-                                    {{detail.mt}}分
-                                    {{detail.st}}分
-                                    {{detail.cmt}}
-                                    {{detail.checked}}
-                                    
-                                    <button mat-button color="primary" (click)="editMcReport(report.machine, detail)">Edit</button>
-                                    <button mat-button color="warn" (click)="deleteMcReport(detail.id)">Delete</button>
+                            <mat-accordion class="example-headers-align" multi [@.disabled]="true">
+                                <div *ngFor="let detail of report.detail" class="my-3">
+                                    <mat-expansion-panel expanded="false">
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                {{detail.productCode}}
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                {{detail.amount}}
+                                                {{detail.st}}分
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+
+                                        <div class="flex flex-col">
+                                            <div>{{detail.customerCode}}</div>
+                                            <div>{{detail.material}}</div>
+                                            <div>{{detail.failAmount}}</div>
+                                            <div>{{detail.failReason}}</div>
+                                            <div>{{detail.mt}}分</div>
+                                            <div>{{detail.st}}分</div>
+                                            <div>{{detail.cmt}}</div>
+                                            <div>{{detail.checked}}</div>
+                                            
+                                            <div class="flex flex-row justify-center">
+                                                <button mat-button color="primary" (click)="editMcReport(report.machine, detail)">Edit</button>
+                                                <button mat-button color="warn" (click)="deleteMcReport(detail.id)">Delete</button>
+                                            </div>
+                                        
+                                        </div>
+                                        
+                                    </mat-expansion-panel>
+                                </div>
                                 
-                                </mat-expansion-panel>
-                              </div>
-                            
-                          </mat-accordion>
-                         
-                        
+                            </mat-accordion>
+                                                 
                     </mat-tab>
                 </mat-tab-group>
-
-               <div class="my-3 text-xl">作業時間：{{mcDailyReport.totalSt}}分</div>
-
-                
+                    
             </div>
+
         </div>
 
     </ng-container>

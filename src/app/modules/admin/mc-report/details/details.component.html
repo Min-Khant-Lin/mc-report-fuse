@@ -6,12 +6,17 @@
         
         
         <!-- Header -->
-        <div class="flex flex-col w-full h-30 sm:h-48 px-8 sm:px-12 bg-accent-100 dark:bg-accent-700">
+        <div class="flex flex-col w-full h-40 sm:h-40 px-8 sm:px-12 bg-accent-100 dark:bg-accent-700">
     
             <div class="flex justify-between">
-                <div class="mt-3 text-4xl font-bold truncate">{{mcDailyReport.userName}}</div>
+                <div class="mt-3 text-2xl sm:text-4xl font-bold truncate">
+                    {{mcDailyReport.userName}}(
+                        {{mcDailyReport.date | date:'shortDate'}}    
+                    )
+                </div>
+
                 <button
-                    class="mt-3"
+                    class="mt-3 bg-black"
                     mat-icon-button
                     [matTooltip]="'Close'"
                     [routerLink]="['../']">
@@ -21,52 +26,123 @@
                 </button>
             </div>
             <div class="flex justify-between">
-                <div class="mt-3 text-xl">{{mcDailyReport.date | date:'shortDate'}}</div>    
-                <div class="mt-3 text-xl">{{mcDailyReport.totalSt}}分</div>
+                <div class="mt-3 text-xl text-medium">作業時間：{{mcDailyReport.totalSt}}分</div>
             </div>
-
+            
+            <div class="flex justify-between">
+                <button mat-raised-button class="mt-2 bg-yellow-400">確認</button>
+            </div>
         </div>
         
         <!-- Report Detail -->
-        <div class="relative flex flex-col flex-auto items-center p-6 pt-0 sm:p-12 sm:pt-0">
-            <div class="w-full max-w-3xl mt-5">
+        <div class="relative flex flex-col flex-auto items-center px-2 sm:px-5">
+            <div class="w-full mt-5">
 
                 <mat-tab-group>
                     <mat-tab *ngFor="let report of mcDailyReport.reports; index as i" label="{{report.machine}}">
                         
                         <div class="example-action-buttons my-3">
-                            <button mat-button (click)="openAll(i)">Expand All</button>
-                            <button mat-button (click)="closeAll(i)">Collapse All</button>
+                            <button mat-button (click)="openAll(i)">拡大</button>
+                            <button mat-button (click)="closeAll(i)">崩壊</button>
                         </div>
 
                             <mat-accordion class="example-headers-align" multi [@.disabled]="true">
                                 <div *ngFor="let detail of report.detail" class="my-3">
-                                    <mat-expansion-panel expanded="false">
-                                        <mat-expansion-panel-header>
-                                            <mat-panel-title>
-                                                {{detail.productCode}}
+                                    <mat-expansion-panel expanded="false" class="bg-accent-100">
+                                        <mat-expansion-panel-header class="text-lg">
+                                            <mat-panel-title class="text-black font-bold">
+                                                <div>
+                                                    {{detail.productCode}}
+                                                </div>
+                                                <div>
+                                                    /{{detail.amount}}個
+                                                </div>
                                             </mat-panel-title>
-                                            <mat-panel-description>
-                                                {{detail.amount}}
-                                                {{detail.st}}分
+                                            <mat-panel-description class="flex justify-end text-black">
+                                                <div>
+                                                    {{detail.st}}分
+                                                </div>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
 
-                                        <div class="flex flex-col">
-                                            <div>{{detail.customerCode}}</div>
-                                            <div>{{detail.material}}</div>
-                                            <div>{{detail.failAmount}}</div>
-                                            <div>{{detail.failReason}}</div>
-                                            <div>{{detail.mt}}分</div>
-                                            <div>{{detail.st}}分</div>
-                                            <div>{{detail.cmt}}</div>
-                                            <div>{{detail.checked}}</div>
-                                            
-                                            <div class="flex flex-row justify-center">
-                                                <button mat-button color="primary" (click)="editMcReport(report.machine, detail)">Edit</button>
-                                                <button mat-button color="warn" (click)="deleteMcReport(detail.id)">Delete</button>
+                                        <!-- <div class="flex flex-col text-black">
+                                            <div class="flex flex-row py-3">
+                                                <div class="basis-1/3">
+                                                    客名    
+                                                </div>
+                                                <div>
+                                                    {{detail.customerCode}}
+                                                </div>
                                             </div>
-                                        
+                                            <div class="flex flex-row py-3">
+                                                <div class="basis-1/3">
+                                                    材料    
+                                                </div>
+                                                <div>
+                                                    {{detail.material}}
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-row py-3">
+                                                <div class="basis-1/3">
+                                                    MT      
+                                                </div>
+                                                <div>
+                                                    {{detail.mt}}分
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-row py-3">
+                                                <div class="basis-1/3">
+                                                    段取    
+                                                </div>
+                                                <div>
+                                                    {{detail.st}}分
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-row py-3">
+                                                <div class="basis-1/3">
+                                                    備考    
+                                                </div>
+                                                <div>
+                                                    {{detail.cmt}}
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-row py-3">
+                                                <div class="basis-1/3">
+                                                    不良数  
+                                                </div>
+                                                <div>
+                                                    {{detail.failAmount}}
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-row py-3">
+                                                <div class="basis-1/3">
+                                                    理由    
+                                                </div>
+                                                <div>
+                                                    {{detail.failReason}}
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-row py-3">
+                                                <div class="basis-1/3">
+                                                    確認    
+                                                </div>
+                                                <div>
+                                                    {{detail.checked}}
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                         -->
+                                        <div class="flex flex-row justify-end">
+                                            <button mat-raised-button color="primary" (click)="editMcReport(report.machine, detail)" class="mr-2">詳細</button>
+                                            <button mat-raised-button color="warn" (click)="deleteMcReport(detail.id)">削除</button>
+                                            <!-- <button class="ml-4" mat-flat-button [color]="'primary'" (click)="editMcReport(report.machine, detail)">
+                                                <span class="ml-2 mr-1">詳細</span>
+                                            </button>
+                                            <button class="ml-4" mat-flat-button [color]="'warn'" (click)="deleteMcReport(detail.id)">
+                                                <span class="ml-2 mr-1">削除</span>
+                                            </button> -->
                                         </div>
                                         
                                     </mat-expansion-panel>

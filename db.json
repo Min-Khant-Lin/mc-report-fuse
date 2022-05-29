@@ -2,7 +2,7 @@
   "mcReports": [
     {
       "userName": "ミンカンリン",
-      "date": "2022-04-04",
+      "date": "2022-05-04",
       "machine": "MC",
       "reportType": "1",
       "customerCode": "HBS",
@@ -20,7 +20,7 @@
     },
     {
       "userName": "ミンカンリン",
-      "date": "2022-04-04",
+      "date": "2022-05-04",
       "machine": "MC",
       "reportType": "1",
       "customerCode": "日立",
@@ -41,7 +41,7 @@
     {
       "userId": 1,
       "userName": "ミンカンリン",
-      "date": "2022-04-04",
+      "date": "2022-05-04",
       "totalSt": "640",
       "reports": [
         {
@@ -136,7 +136,7 @@
     {
       "userId": 2,
       "userName": "櫻井",
-      "date": "2022-04-04",
+      "date": "2022-05-04",
       "totalSt": "640",
       "reports": [
         {
@@ -180,7 +180,7 @@
     {
       "userId": 3,
       "userName": "小島",
-      "date": "2022-04-29",
+      "date": "2022-05-29",
       "totalSt": "480",
       "reports": [
         {
@@ -224,7 +224,7 @@
     {
       "userId": 4,
       "userName": "ティハソー",
-      "date": "2022-04-29",
+      "date": "2022-05-29",
       "totalSt": "480",
       "reports": [
         {

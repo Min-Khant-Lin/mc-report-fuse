@@ -20,6 +20,7 @@ import { delay } from 'lodash';
 @Component({
     selector       : 'mc-report-details',
     templateUrl    : './details.component.html',
+    styleUrls      : ['./details.component.scss'],
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -1,41 +1,47 @@
-<div class="flex flex-col w-full">
+<div class="flex flex-col w-full relative">
 
     <!-- View mode -->
     <ng-container *ngIf="!editMode">
 
-        
+        <div class="absolute top-3 right-3">
+            <button
+                class="bg-black"
+                mat-icon-button
+                [matTooltip]="'Close'"
+                [routerLink]="['../']">
+                <mat-icon
+                class="text-white"
+                [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+        </div>
         
         <!-- Header -->
-        <div class="flex flex-col w-full h-40 sm:h-40 px-8 sm:px-12 bg-accent-100 dark:bg-accent-700">
-    
-            <div class="flex justify-between">
+        <div class="flex flex-col w-full h-50 sm:h-60 px-11 sm:px-12 bg-accent-700 dark:bg-accent-700 text-white">
+            
+            <div class="flex justify-center">
                 <div class="mt-3 text-2xl sm:text-4xl font-bold truncate">
-                    {{mcDailyReport.userName}}(
-                        {{mcDailyReport.date | date:'shortDate'}}    
+                    {{mcDailyReport.userName}}
+                </div>
+                
+            </div>
+            <div class="flex justify-center">
+                <div class="mt-3 text-xl sm:text-2xl font-bold ">
+                    (
+                        {{mcDailyReport.date | date:"YYYY年MM月dd日"}}    
                     )
                 </div>
-
-                <button
-                    class="mt-3 bg-black"
-                    mat-icon-button
-                    [matTooltip]="'Close'"
-                    [routerLink]="['../']">
-                    <mat-icon
-                    class="text-white"
-                    [svgIcon]="'heroicons_outline:x'"></mat-icon>
-                </button>
             </div>
-            <div class="flex justify-between">
+            <div class="flex justify-center">
                 <div class="mt-3 text-xl text-medium">作業時間：{{mcDailyReport.totalSt}}分</div>
             </div>
             
-            <div class="flex justify-between">
-                <button mat-raised-button class="mt-2 bg-yellow-400">確認</button>
+            <div class="flex justify-center">
+                <button mat-raised-button class="mt-2 px-8 bg-yellow-400">確認</button>
             </div>
         </div>
         
         <!-- Report Detail -->
-        <div class="relative flex flex-col flex-auto items-center px-2 sm:px-5">
+        <div class="relative flex flex-col flex-auto items-center px-2 sm:px-5 bg-accent-100">
             <div class="w-full mt-5">
 
                 <mat-tab-group>
@@ -48,7 +54,7 @@
 
                             <mat-accordion class="example-headers-align" multi [@.disabled]="true">
                                 <div *ngFor="let detail of report.detail" class="my-3">
-                                    <mat-expansion-panel expanded="false" class="bg-accent-100">
+                                    <mat-expansion-panel expanded="false" class="">
                                         <mat-expansion-panel-header class="text-lg">
                                             <mat-panel-title class="text-black font-bold">
                                                 <div>
@@ -135,8 +141,8 @@
                                         </div>
                                          -->
                                         <div class="flex flex-row justify-end">
-                                            <button mat-raised-button color="primary" (click)="editMcReport(report.machine, detail)" class="mr-2">詳細</button>
-                                            <button mat-raised-button color="warn" (click)="deleteMcReport(detail.id)">削除</button>
+                                            <button mat-stroked-button color="primary" (click)="editMcReport(report.machine, detail)" class="mr-2">詳細</button>
+                                            <button mat-stroked-button color="warn" (click)="deleteMcReport(detail.id)">削除</button>
                                             <!-- <button class="ml-4" mat-flat-button [color]="'primary'" (click)="editMcReport(report.machine, detail)">
                                                 <span class="ml-2 mr-1">詳細</span>
                                             </button>

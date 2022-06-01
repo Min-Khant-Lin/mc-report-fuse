@@ -101,6 +101,8 @@ export class McReportListComponent implements OnInit, OnDestroy
                 filterDate = this._mcService.transformDate(filterDate);
                 this._mcService.getMcDailyReportsByDate(filterDate)
                 .subscribe();
+
+                this._mcService.getMcDailyReports(filterDate).subscribe();
             })
                 
                 

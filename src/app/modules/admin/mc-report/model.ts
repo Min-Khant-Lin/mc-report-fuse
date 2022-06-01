@@ -23,10 +23,10 @@ export interface McDailyReport {
     userName:string;
     date:Date;
     totalSt: number;
-    detail:McReport[];
+    detail:McMachine[];
 }
 
-export interface McReport{
+export interface McMachine{
     machine: string;
     machineSt: number;
     detail: McReportDetail[];
@@ -34,7 +34,7 @@ export interface McReport{
 
 export interface McReportDetail{
     id: number;
-    reportType:string;
+    reportType:number;
     customerCode:string;
     material:string;
     productCode:string;
@@ -45,5 +45,5 @@ export interface McReportDetail{
     mt: number;
     st: number;
     cmt: string;
-    checked: boolean;
+    checked: any;
 }

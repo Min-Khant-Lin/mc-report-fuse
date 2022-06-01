@@ -1,8 +1,9 @@
 {
   "mcReports": [
     {
-      "userName": "ミンカンリン",
-      "date": "2022-05-04",
+      "userId": 1,
+      "userName": "櫻井",
+      "date": "2022-06-04",
       "machine": "MC",
       "reportType": "1",
       "customerCode": "HBS",
@@ -19,8 +20,9 @@
       "id": 1
     },
     {
+      "userId": 2,
       "userName": "ミンカンリン",
-      "date": "2022-05-04",
+      "date": "2022-06-04",
       "machine": "MC",
       "reportType": "1",
       "customerCode": "日立",
@@ -35,13 +37,51 @@
       "cmt": "",
       "checked": false,
       "id": 2
+    },
+    {
+      "userId": 1,
+      "userName": "櫻井",
+      "date": "2022-06-04",
+      "machine": "MILLAC",
+      "reportType": "1",
+      "customerCode": "HBS",
+      "material": "SS",
+      "productCode": "P002-03",
+      "amount": "10",
+      "passFail": false,
+      "failAmount": "",
+      "failReason": "",
+      "mt": "180",
+      "st": "360",
+      "cmt": "",
+      "checked": true,
+      "id": 3
+    },
+    {
+      "userId": 2,
+      "userName": "ミンカンリン",
+      "date": "2022-06-04",
+      "machine": "MC",
+      "reportType": "1",
+      "customerCode": "住友",
+      "material": "HT560",
+      "productCode": "P004-5",
+      "amount": "3",
+      "passFail": true,
+      "failAmount": "1",
+      "failReason": "原点の位置",
+      "mt": "60",
+      "st": "120",
+      "cmt": "",
+      "checked": false,
+      "id": 4
     }
   ],
   "mcDailyReports": [
     {
       "userId": 1,
       "userName": "ミンカンリン",
-      "date": "2022-05-04",
+      "date": "2022-06-04",
       "totalSt": "640",
       "reports": [
         {
@@ -136,7 +176,7 @@
     {
       "userId": 2,
       "userName": "櫻井",
-      "date": "2022-05-04",
+      "date": "2022-06-04",
       "totalSt": "640",
       "reports": [
         {
@@ -180,7 +220,7 @@
     {
       "userId": 3,
       "userName": "小島",
-      "date": "2022-05-29",
+      "date": "2022-06-29",
       "totalSt": "480",
       "reports": [
         {
@@ -224,7 +264,7 @@
     {
       "userId": 4,
       "userName": "ティハソー",
-      "date": "2022-05-29",
+      "date": "2022-06-29",
       "totalSt": "480",
       "reports": [
         {

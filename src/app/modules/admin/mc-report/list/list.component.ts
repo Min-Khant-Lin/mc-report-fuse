@@ -99,8 +99,7 @@ export class McReportListComponent implements OnInit, OnDestroy
             .valueChanges.subscribe((filterDate)=>{
                 // Change date format of form
                 filterDate = this._mcService.transformDate(filterDate);
-                this._mcService.getMcDailyReportsByDate(filterDate)
-                .subscribe();
+                // this._mcService.getMcDailyReportsByDate(filterDate).subscribe();
 
                 this._mcService.getMcDailyReports(filterDate).subscribe();
             })

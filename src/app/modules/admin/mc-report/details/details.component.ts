@@ -4,17 +4,18 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
-import { debounceTime, Observable, Subject, takeUntil } from 'rxjs';
+import { catchError, debounceTime, forkJoin, Observable, Subject, takeUntil } from 'rxjs';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 
-import { McDailyReport, McReport, McReportDetail } from '../model';
+import { McDailyReport, McMachine, McReport } from '../model';
 import { McReportService } from '../mc-report.service';
 import { McReportListComponent } from '../list/list.component';
 import { McReportAddDialogComponent } from '../add/dialog/dialog.component';
 
 import { MatAccordion } from '@angular/material/expansion';
 import { MatDialog } from '@angular/material/dialog';
-import { delay } from 'lodash';
+import { delay, merge } from 'lodash';
+import { HttpResponse } from '@angular/common/http';
 
 
 @Component({
@@ -127,19 +128,28 @@ export class McReportDetailsComponent implements OnInit, OnDestroy
         this.accordion.get(i).closeAll();
     }
 
-    editMcReport(machine: any, detail: McReportDetail){
-        detail['userId'] = this.mcDailyReport.userId
-        detail['userName'] = this.mcDailyReport.userName
-        detail['date'] = this.mcDailyReport.date
-        detail['machine'] = machine
-        console.log(detail)
+
+    toggleChecked(checked: boolean, machines: McMachine[]): void {
+        this._mcService
+        machines.forEach(machine=>{
+            machine.reports.forEach(report=>{
+                report.checked = checked;
+                this._mcService.updateMcReport(report.id, report).subscribe(res=>{
+                    console.log(res);
+                })
+            })
+        })
+    }
+
+    editMcReport(report: McReport){
+        console.log(report)
         
         this.dialog.open(McReportAddDialogComponent, {
             maxWidth: '100vw',
             maxHeight: '100vh',
             autoFocus: false,
             disableClose: true,
-            data: detail,
+            data: report,
           }).afterClosed().subscribe(value => {
             if(value==='update'){
                 
@@ -149,10 +159,39 @@ export class McReportDetailsComponent implements OnInit, OnDestroy
           })
     }
 
-    deleteMcReport(id: any){
-        console.log(id);
-    }
+    /**
+     * Delete the contact
+     */
+    deleteMcReport(id: any): void
+    {
+        // Open the confirmation dialog
+        const confirmation = this._fuseConfirmationService.open({
+            title  : 'Delete contact',
+            message: 'Are you sure you want to delete this contact? This action cannot be undone!',
+            actions: {
+                confirm: {
+                    label: 'Delete'
+                }
+            }
+        });
 
+        // Subscribe to the confirmation dialog closed action
+        confirmation.afterClosed().subscribe((result) => {
+
+            // If the confirm button pressed...
+            if ( result === 'confirmed' )
+            {
+                this._mcService.deleteMcReport(id).subscribe(res=>{
+                    console.log(res);
+                })
+
+                // Mark for check
+                this._changeDetectorRef.markForCheck();
+            }
+        });
+
+    }
+    
     /**
      * Close the drawer
      */
@@ -181,51 +220,19 @@ export class McReportDetailsComponent implements OnInit, OnDestroy
         this._changeDetectorRef.markForCheck();
     }
 
+    // openEdit(report: McReport){
+    //     // Launch the modal
+    //     this.dialog.open(McReportAddDialogComponent, {
+    //         autoFocus: false,
+    //         data:report
+    //     })
+    //         .afterClosed()
+    //         .subscribe(() => {
 
-    /**
-     * Delete the contact
-     */
-    deleteContact(): void
-    {
-        // Open the confirmation dialog
-        const confirmation = this._fuseConfirmationService.open({
-            title  : 'Delete contact',
-            message: 'Are you sure you want to delete this contact? This action cannot be undone!',
-            actions: {
-                confirm: {
-                    label: 'Delete'
-                }
-            }
-        });
-
-        // Subscribe to the confirmation dialog closed action
-        confirmation.afterClosed().subscribe((result) => {
-
-            // If the confirm button pressed...
-            if ( result === 'confirmed' )
-            {
-
-
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            }
-        });
-
-    }
-
-    openEdit(report: McReport){
-        // Launch the modal
-        this.dialog.open(McReportAddDialogComponent, {
-            autoFocus: false,
-            data:report
-        })
-            .afterClosed()
-            .subscribe(() => {
-
-                // Go up twice because card routes are setup like this; "card/CARD_ID"
-                // this._router.navigate(['./..'], {relativeTo: this._activatedRoute});
-            });
-    }
+    //             // Go up twice because card routes are setup like this; "card/CARD_ID"
+    //             // this._router.navigate(['./..'], {relativeTo: this._activatedRoute});
+    //         });
+    // }
 
 
     /**

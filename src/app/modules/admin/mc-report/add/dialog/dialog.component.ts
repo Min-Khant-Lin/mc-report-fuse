@@ -80,6 +80,7 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy {
 
         // Prepare the mc report form
         this.mcReportForm = this._formBuilder.group({
+            userId:[''],
             userName:[''],
             date:[this.todayDate],
             machine:[machineFromLocal],
@@ -106,6 +107,8 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy {
         // Get the edit data
         if (this.editData) {
             this.actionBtn = '更新';
+
+            this.mcReportForm.controls['userId'].setValue(this.editData.userId);
             this.mcReportForm.controls['userName'].setValue(this.editData.userName);
             this.mcReportForm.controls['date'].setValue(this.editData.date);
             this.mcReportForm.controls['machine'].setValue(this.editData.machine);

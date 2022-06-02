@@ -28,10 +28,10 @@ export class McDailyReportsResolver implements Resolve<any>
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<McDailyReport[]>
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<McReport[]>
     {
         let todayDate = this._mcService.transformDate(this.date);
-        return this._mcService.getMcDailyReportsByDate(todayDate);
+        return this._mcService.getMcDailyReports(todayDate);
     }
 }
 
@@ -60,9 +60,9 @@ export class McDailyReportResolver implements Resolve<any>
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<McDailyReport>
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<McReport[]>
     {
-        return this._mcService.getMcDailyReportByUserId(route.paramMap.get('userId'))
+        return this._mcService.getMcDailyReport(route.paramMap.get('userId'),route.paramMap.get('date'))
             .pipe(
                 // Error here means the requested contact is not available
                 catchError((error) => {
@@ -72,7 +72,7 @@ export class McDailyReportResolver implements Resolve<any>
 
                     // Get the parent url
                     const parentUrl = state.url.split('/').slice(0, -1).join('/');
-
+                    
                     // Navigate to there
                     this._router.navigateByUrl(parentUrl);
 

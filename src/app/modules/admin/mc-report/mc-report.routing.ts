@@ -28,7 +28,7 @@ export const McReportRoutes: Route[] = [
                         component    : McReportAddComponent,
                     },
                     {
-                        path         : ':userId',
+                        path         : ':userId/:date',
                         component    : McReportDetailsComponent,
                         resolve      : {
                             mcDailyReport: McDailyReportResolver,

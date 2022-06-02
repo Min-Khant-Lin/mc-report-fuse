@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { McReport, McDailyReport, McReportDetail, McMachine } from './model';
-import { BehaviorSubject, Observable, tap, take, groupBy } from 'rxjs';
+import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
+import { McReport, McDailyReport, McMachine } from './model';
+import { BehaviorSubject, Observable, tap, take, groupBy, catchError } from 'rxjs';
 import { DatePipe } from '@angular/common';
-import { filter, StringNullableChain } from 'lodash';
 
 
 const baseUrl = 'http://localhost:3000';
@@ -31,7 +30,7 @@ export class McReportService {
     return this._mcDailyReports.asObservable();
   }
 
-  // Getter for daily reports
+  // Getter for daily report
   get mcDailyReport$(): Observable<McDailyReport>{
     return this._mcDailyReport.asObservable();
   }
@@ -40,35 +39,6 @@ export class McReportService {
   get mcReport$(): Observable<McReport>{
     return this._mcReport.asObservable();
   }
-
-  // Get mc daily reports
-  // getMcDailyReports(): Observable<McDailyReport[]>{
-  //     return this.http.get<McDailyReport[]>(
-  //       `${baseUrl}/mcDailyReports`
-  //       )
-  //       .pipe(
-  //         tap((res)=>{
-  //           this._mcDailyReports.next(res);
-  //         })
-  //       )   
-  // }
-
-  // Get mc daily reports by date
-  getMcDailyReportsByDate(date: any): Observable<McDailyReport[]>{
-    console.log(date);
-
-    return this.http.get<McDailyReport[]>(
-      `${baseUrl}/mcDailyReports?date=${date}`
-    )
-    .pipe(
-      tap((res)=>{
-        // console.log(res);
-        this._mcDailyReports.next(res);
-      })
-    )
-  }
-
-
 
   getMcDailyReports(date: any): Observable<McReport[]>{
     console.log(date);
@@ -79,10 +49,22 @@ export class McReportService {
     .pipe(
       tap((res)=>{
         // console.log(res);
-        this.transformReports(res);
-        // this._mcDailyReports.next(res);
+        let reports:McDailyReport[] = this.transformReports(res)
+        this._mcDailyReports.next(reports);
       })
     )
+  }
+
+  getMcDailyReport(userId: any, date: any): Observable<McReport[]>{
+    return this.http.get<McReport[]>(
+      `${baseUrl}/mcReports?userId=${userId}&date=${date}`
+      )
+      .pipe(
+        tap((res)=>{
+          let reports: McDailyReport[] = this.transformReports(res)
+          this._mcDailyReport.next(reports[0]);
+        })
+      )
   }
 
   // mcReports into mcDailyReports
@@ -90,17 +72,16 @@ export class McReportService {
     interface user{
       userId: number,
       userName: string,
-      date: Date,
+      date: Date
     }
     let user: user;
     let users: user[] = [];
     let userIdList = [];
 
-    console.log("All: " + reports);
     // NOTE get user list
     reports.forEach( function (report){
       if(userIdList.includes(report.userId)){
-        console.log('skip');
+        // console.log('skip');
       }
       else{
         user = {
@@ -113,13 +94,14 @@ export class McReportService {
       }
     })
 
-    let tempTotalSt = 0;
+
     let tempMcDailyReport: McDailyReport;
     let tempMcDailyReports: McDailyReport[] = [];
+    let checked: boolean = true;
     // NOTE loop through users
     users.forEach(function(user){
       let reportsFilteredByUser = reports.filter(report=>report.userId === user.userId);
-      console.log(reportsFilteredByUser);
+      // console.log(reportsFilteredByUser);
 
       let machines = []
       reportsFilteredByUser.forEach(function(report){
@@ -131,48 +113,51 @@ export class McReportService {
         }
       })
 
-      console.log("Machine List: " + machines);
+      // console.log("Machine List: " + machines);
       
       let tempMcMachine: McMachine;
       let tempMcMachines: McMachine[] = [];
-      let tempTotalMT:number = 0;
+      let tempTotalMT = 0;
+      let tempTotalSt = 0;
       machines.forEach(function(machine){
         let reportsFilteredByMachine = reportsFilteredByUser.filter(report=>report.machine === machine)
-        console.log(reportsFilteredByMachine);
+        // console.log(reportsFilteredByMachine);
 
-        let tempMcReportDetail: McReportDetail;
-        let tempMcReportDetails: McReportDetail[] = [];
+        let tempMcReport: McReport;
+        let tempMcReports: McReport[] = [];
         reportsFilteredByMachine.forEach(function(report){
-            tempMcReportDetail = {
-              id          : report.id,
-              reportType  : report.reportType,
-              customerCode: report.customerCode,
-              material    : report.material,
-              productCode : report.productCode,
-              amount      : report.amount,
-              passFail    : report.passFail,
-              failAmount  : report.failAmount,
-              failReason  : report.failReason,
-              mt          : report.mt,
-              st          : report.st,
-              cmt         : report.cmt,
-              checked     : report.checked
+            // tempMcReportDetail = {
+            //   id          : report.id,
+            //   reportType  : report.reportType,
+            //   customerCode: report.customerCode,
+            //   material    : report.material,
+            //   productCode : report.productCode,
+            //   amount      : report.amount,
+            //   passFail    : report.passFail,
+            //   failAmount  : report.failAmount,
+            //   failReason  : report.failReason,
+            //   mt          : report.mt,
+            //   st          : report.st,
+            //   cmt         : report.cmt,
+            //   checked     : report.checked
+            // }
+            tempMcReport = report;
+            
+            if(report.checked == false){
+              checked = false;
             }
 
-            tempTotalMT +=report.mt;
-            console.log(tempMcReportDetail);
-            tempMcReportDetails.push(tempMcReportDetail);
+            tempTotalMT = tempTotalMT + Number(report.mt);
+            tempTotalSt = tempTotalSt + Number(report.st);
+            tempMcReports.push(tempMcReport);
         })
-        
-        tempTotalSt += tempTotalMT;
 
         tempMcMachine = {
           machine: machine,
           machineSt: tempTotalMT,
-          detail: tempMcReportDetails
+          reports: tempMcReports
         }
 
-        console.log(tempMcMachine);
         tempMcMachines.push(tempMcMachine);
         
       })
@@ -182,86 +167,15 @@ export class McReportService {
         userName: user.userName,
         date: user.date,
         totalSt: tempTotalSt,
-        detail: tempMcMachines
+        checked: checked,
+        machines: tempMcMachines
       }
 
-      console.log(tempMcDailyReport);
       tempMcDailyReports.push(tempMcDailyReport);
     })
 
-    console.log(tempMcDailyReports);
-    // // NOTE get machine list
-    // users.forEach( function (id){
-    //   let machines = [];
-    //   reports.forEach( function (report){
-    //     if(machines.includes(report['machine'])){
-    //       console.log('skip machine');
-    //     }
-    //     else{
-    //       machines.push(report['machine']);
-    //     }
-    //   })
-
-    //   // NOTE get detail list
-    //   machines.forEach( function(machine){
-    //     reports.forEach( function (report){
-
-    //       if(report['machine']==machine){
-    
-    //         tempMcReportDetail = {
-    //           id          : report['id'],
-    //           reportType  : report['reportType'],
-    //           customerCode: report['customerCode'],
-    //           material    : report['material'],
-    //           productCode : report['productCode'],
-    //           amount      : report['amount'],
-    //           passFail    : report['passFail'],
-    //           failAmount  : report['failAmount'],
-    //           failReason  : report['failReason'],
-    //           mt          : report['mt'],
-    //           st          : report['st'],
-    //           cmt         : report['cmt'],
-    //           checked     : report['checked']
-    //         }
-    
-    //         tempMcReportDetails.push(tempMcReportDetail);
-    
-    //       }
-    //     })
-    //   })
-    // })
-
-    // // Accepts the array and key
-    // const groupBy = (array, key) => {
-    //   // Return the end result
-    //   return array.reduce((result, currentValue) => {
-    //     // If an array already present for key, push it to the array. Else create an array and push the object
-    //     (result[currentValue[key]] = result[currentValue[key]] || []).push(
-    //       currentValue
-    //     );
-    //     // Return the current iteration `result` value, this will be taken as next iteration `result` value and accumulate
-    //     return result;
-    //   }, {}); // empty object is the initial value for result object
-    // };
-
-    // const reportsGroupedByUser = groupBy(reports, 'userId');
-    // console.log(reportsGroupedByUser)
-
-  }
-
-
-
-
-  // Get mc daily report by userId
-  getMcDailyReportByUserId(userId: any): Observable<McDailyReport>{
-    return this.http.get<McDailyReport>(
-      `${baseUrl}/mcDailyReports?userId=${userId}`
-      )
-      .pipe(
-        tap((res)=>{
-          this._mcDailyReport.next(res[0]);
-        })
-      )   
+    // console.log(tempMcDailyReports);
+    return tempMcDailyReports;
   }
 
   // Get mc report by reportId
@@ -273,7 +187,6 @@ export class McReportService {
       take(1),
       tap((res)=>{
         this._mcReport.next(res[0]);
-        console.log(res[0])
       })
     )
   }

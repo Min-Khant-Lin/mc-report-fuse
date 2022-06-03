@@ -43,7 +43,7 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy {
     todayDate = new Date();
     machines = ['MC', 'MILLAC', 'ラジアル']
     reportType: number = 1;
-    pass: boolean = true;
+    fail: boolean = false;
     checked: boolean;
     actionBtn = '登録';
 
@@ -89,7 +89,7 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy {
             material:[''],
             productCode:[''],
             amount:[''],
-            passFail:[''],
+            fail:[false],
             failAmount:[''],
             failReason:[''],
             mt:[''],
@@ -120,7 +120,10 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy {
             this.mcReportForm.controls['material'].setValue(this.editData.material);
             this.mcReportForm.controls['productCode'].setValue(this.editData.productCode);
             this.mcReportForm.controls['amount'].setValue(this.editData.amount);
-            this.mcReportForm.controls['passFail'].setValue(this.editData.passFail);
+            this.mcReportForm.controls['fail'].setValue(this.editData.fail);
+            // Set the fail fail value
+            this.fail = this.editData.fail;
+
             this.mcReportForm.controls['failAmount'].setValue(this.editData.failAmount);
             this.mcReportForm.controls['failAmount'].setValue(this.editData.failAmount);
             this.mcReportForm.controls['failReason'].setValue(this.editData.failReason);
@@ -158,7 +161,7 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy {
             this.mcReportForm.value.material = '';
             this.mcReportForm.value.productCode = '';
             this.mcReportForm.value.amount = '';
-            this.mcReportForm.value.passFail = '';
+            this.mcReportForm.value.fail = '';
             this.mcReportForm.value.failAmount = '';
             this.mcReportForm.value.failReason = '';
             this.mcReportForm.value.mt = '';
@@ -207,8 +210,8 @@ export class McReportAddDialogComponent implements OnInit, OnDestroy {
         this.reportType = event.value;
     }
 
-    togglePass() {
-        this.pass = !this.pass;
+    toggleFail() {
+        this.fail = !this.fail;
     }
 
     toggleChecked() {

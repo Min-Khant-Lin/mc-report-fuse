@@ -9,7 +9,7 @@ export interface McReport {
     material:string;
     productCode:string;
     amount: number;
-    passFail: boolean;
+    fail: boolean;
     failAmount: number;
     failReason:string;
     mt: number;

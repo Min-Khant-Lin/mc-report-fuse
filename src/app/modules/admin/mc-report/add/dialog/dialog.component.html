@@ -108,19 +108,19 @@
             </mat-form-field>
     
             <section class="fuse-mat-no-subscript w-full">
-                <mat-checkbox formControlName="passFail" 
-                (change)="togglePass()" 
+                <mat-checkbox formControlName="fail" 
+                (change)="toggleFail()" 
                 class="example-margin">不良</mat-checkbox>
             </section>
     
 
-            <div class="fail" [hidden]="pass">
+            <div class="fail" [hidden]="!fail">
     
                 <mat-form-field class="fuse-mat-no-subscript w-full">
                     <mat-label>不良数</mat-label>
                     <input
                         matInput
-                        [required]="!pass"
+                        [required]="fail"
                         formControlName="failAmount"
                         [placeholder]="'Fail Amount'">
                 </mat-form-field>
@@ -129,7 +129,7 @@
                     <mat-label>理由</mat-label>
                     <textarea
                         matInput
-                        [required]="!pass"
+                        [required]="fail"
                         [formControlName]="'failReason'"
                         [rows]="1"
                         cdkTextareaAutosize
@@ -170,7 +170,7 @@
             </textarea>
         </mat-form-field>
 
-        <section class="fuse-mat-no-subscript w-full"
+        <!-- <section class="fuse-mat-no-subscript w-full"
             *ngIf="this.editData"
         >
             <button
@@ -190,7 +190,7 @@
             >
                 <span> 確認 </span>
             </button>
-        </section>
+        </section> -->
 
         <div mat-dialog-actions class="self-end">
             <button

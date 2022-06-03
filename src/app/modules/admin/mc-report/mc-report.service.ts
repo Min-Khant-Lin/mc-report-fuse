@@ -133,7 +133,7 @@ export class McReportService {
             //   material    : report.material,
             //   productCode : report.productCode,
             //   amount      : report.amount,
-            //   passFail    : report.passFail,
+            //   fail        : report.fail,
             //   failAmount  : report.failAmount,
             //   failReason  : report.failReason,
             //   mt          : report.mt,
